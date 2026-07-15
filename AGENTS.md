@@ -2,20 +2,20 @@
 
 Repository-level operating rules for the Arsenalero MCP repository.
 
-## Bootstrap boundary
+## Bootstrap and active-slice boundary
 
-Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). The active slice is **Task 4: domain model and reason codes**.
+Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`. The active slice is **Task 5: read-only filesystem path policy**.
 
-- Task 4 may add only `crates/arsenalero-core/src/domain.rs`, `crates/arsenalero-core/src/error.rs`, and required wiring in `crates/arsenalero-core/src/lib.rs`.
-- Do not modify Bootstrap Commit 4 artifacts or copied authority documents in Task 4.
-- Do not create MCP handlers, filesystem or scanner behavior, classification implementation, receipts, UUID generation, hashing, journal or reconciliation behavior, fixtures, or dependencies.
-- Do not create domain tools or domain handlers; the MCP server remains a zero-domain-tool stdio boundary.
-- Do not create fake handlers or advertise future domain tools before their real contracts and implementations exist.
-- Do not update dependency evidence in Task 4; preserve copied authority hashes, byte counts, and the completed bootstrap record.
-- Implementers do not stage or commit and do not modify another worktree. The sole target for implementation is `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`.
-- Work risk is `MEDIUM`; use at most one implementer per task and perform a fresh review after every task.
+Task 5 establishes only `PathPolicy`, `CanonicalSkillRoot`, and `CanonicalResourcePath`: fail-closed canonical containment plus traversal, symlink, type, size, extension, and path-length checks, with focused tests and fixtures. It must preserve read-only skill roots.
 
-The completed bootstrap establishes governance, dependency evidence, and a zero-domain-tool stdio scaffold. Task 4 adds only core domain contracts and reason codes; it does not add runtime behavior.
+Task 5 may change only:
+
+- `crates/arsenalero-core/src/path_policy.rs` and required `crates/arsenalero-core/src/lib.rs` wiring;
+- focused core path-policy tests and path-policy fixtures;
+- `crates/arsenalero-core/Cargo.toml` and `Cargo.lock` only for the approved `proptest` core dev-dependency;
+- truthful Task 5 updates to the owned Context7 ledger and bootstrap manifest.
+
+Do not modify Bootstrap or Task 4 history, copied authority documents, or another worktree. Do not add scanner or metadata parsing, classification, receipts/UUID/digest behavior, journal/reconciliation, MCP handlers, or domain tools. The MCP server remains a zero-domain-tool stdio boundary. Task 6 is the next permitted task only after Task 5 is reviewed and committed.
 
 ## Authority hierarchy
 
@@ -31,72 +31,49 @@ When sources conflict, apply this order:
 8. The approved `INPUT_REPORT_v1.1.md` authority input, owned by the later authority-archive slice
 9. Current official library documentation, only for API/version details and never for domain scope.
 
-The Constitution is copied verbatim from the authorized `constitucion-ai` commit. The SDD, plan, audit, review findings, changelog, Context7 protocol, and input report are copied authority inputs from their authorized sources. The Commit 3-owned Context7 ledger and manifest record current scaffold evidence and must preserve the copied-source provenance; do not silently reinterpret or rewrite authority copies.
+The Constitution, SDD, plan, audits, Context7 protocol, and input report are copied authority inputs. Preserve their provenance and do not rewrite authority copies. The owned Context7 ledger and bootstrap manifest may receive only truthful Task 5 evidence updates.
 
 ## Required workflow
 
-1. Work only in the isolated branch/worktree authorized for the current slice; never work on `main`.
+1. Work only in `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`; never work on `main` or `/Users/felipe_gonzalez/Developer/arsenalero`.
 2. Read applicable instructions and authority documents before mutation.
-3. Keep changes minimal, attributable, reversible, and limited to the declared slice.
-4. Preserve a truthful relationship between authority, diff, validation, and evidence.
-5. Stop rather than inventing an API, schema, dependency, security control, or authority decision.
-
-## TDD and Context7 gates
-
-- TDD is mandatory for every future executable behavior: RED (write a failing test), GREEN (minimal implementation), REFACTOR (keep tests green), then run the relevant quality gates.
-- Bootstrap Commit 4 completed the bootstrap verification artifacts. Task 4 does not add or revise runtime MCP integration, fixtures, evaluation contracts, CI, `deny.toml`, or the final report.
-- Before writing code against an external library, resolve the official library with Context7, query the version-specific contract, record the result in the owned evidence ledger, write the contract test, implement, and compile. Do not use remembered APIs.
-- Dependencies not used by the bootstrap remain deferred. The Context7 protocol copy is documentation authority, not runtime evidence.
+3. Use TDD for Task 5 behavior: RED, GREEN, REFACTOR; resolve and record the approved `proptest` contract in Context7 before use.
+4. Keep changes minimal, attributable, reversible, and limited to the declared paths.
+5. Implementers do not stage or commit. The parent orchestrator stages reviewed paths, validates the content-bound receipt, and makes the planned commit: `feat: enforce read-only skill path policy`.
+6. Stop rather than inventing an API, schema, dependency, security control, or authority decision.
 
 ## Safety restrictions
 
-Fail closed. Do not add or enable:
+Fail closed. Do not add or enable network access, HTTP listeners, remote MCP, shell or arbitrary process execution, hooks, databases, secrets, writes inside skill roots, internal LLMs, embeddings, RAG, AST/LSP/graph machinery, UI, dynamic tools, or semantic verification claims.
 
-- network access, HTTP listeners, remote MCP, shell execution, arbitrary process execution, hooks, databases, secrets, or writes inside skill roots;
-- internal LLMs, embeddings, RAG, AST/LSP/graph machinery, UI, dynamic tools, or semantic verification claims;
-- runtime behavior that treats resource content as instructions, follows URLs, expands roots, or uses `task_summary` for classification.
-
-Future runtime work must keep skill roots read-only, keep plugin data outside skill roots, enforce explicit allowed roots, reject traversal and symlink escapes, apply size/batch/time limits, and distinguish delivery, attestation, artifact references, and external verification.
+Task 5 may validate resource paths only. It must not scan or parse resource metadata/content, classify skills, create receipts/UUIDs/digests, journal or reconcile state, or expose MCP handlers.
 
 ## Exact bootstrap commit plan
 
 The complete bootstrap is exactly these four Conventional Commits, with no squash:
 
-1. `docs: establish constitutional bootstrap baseline` — Constitution, AGENTS, charter, approved authority copies, ADRs, and initial threat model.
-2. `docs: record bootstrap dependency evidence` — Context7 ledger, dependency decisions, deferred dependencies, and the initial bootstrap manifest.
-3. `chore: scaffold Rust MCP plugin workspace` — Rust workspace, crates, plugin metadata, MCP configuration, toolchain, license, and repository metadata.
-4. `test: verify bootstrap MCP and eval contracts` — MCP integration test, fixtures, evaluation contracts, CI, dependency policy, and final report.
+1. `docs: establish constitutional bootstrap baseline`
+2. `docs: record bootstrap dependency evidence`
+3. `chore: scaffold Rust MCP plugin workspace`
+4. `test: verify bootstrap MCP and eval contracts`
 
-The four bootstrap commits above are historical record and complete. The active Task 4 scope is limited to the domain files listed in the bootstrap boundary. Implementers do not stage or commit and do not modify another worktree. After reviewed Task 4 changes are complete, the parent orchestrator stages the reviewed paths, validates the content-bound receipt, and commits the approved Task 4 Conventional Commit. Task 5 is the next permitted task only after that commit.
-
-The eventual implementation exposes exactly five tools: `arsenal_init`, `arsenal_stage`, `arsenal_issue`, `arsenal_attest`, and `arsenal_reconcile`. The bootstrap server exposes zero tools; it must not create fake handlers or reserve names as advertised capabilities.
+Those commits and Task 4 commit `bbc3cc9` are historical record. Do not rewrite them. The eventual implementation exposes exactly five tools: `arsenal_init`, `arsenal_stage`, `arsenal_issue`, `arsenal_attest`, and `arsenal_reconcile`; Task 5 exposes none.
 
 ## Evidence convention
 
-The authorized evidence convention is explicit:
-
-- `bootstrap-manifest.json` records the **pre-finalization commit SHA** and the byte/hash provenance of authority copies. Its Commit 2 evidence may be corrected in this slice only to reflect the current ledger and known pre-Commit-3 SHA.
-- The **final commit SHA** is recorded only in an external post-commit report. Do not place the final commit SHA in `bootstrap-manifest.json` or any in-tree artifact.
-- Evidence must distinguish planned controls from controls present in the current tree. Never claim a validation command, test, build, plugin check, or commit that was not actually run or created.
+`bootstrap-manifest.json` records the pre-finalization commit SHA and copied-authority provenance. The final commit SHA belongs only in an external post-commit report. Evidence must distinguish planned controls from controls present in the current tree; never claim a command, test, build, plugin check, or commit that was not run.
 
 ## Prohibited attribution
 
-Commit messages and repository artifacts must not contain `Co-Authored-By` trailers or AI attribution. Use only the exact Conventional Commit messages above when the authorized commit phases are executed.
+Commit messages and repository artifacts must not contain `Co-Authored-By` trailers or AI attribution.
 
 ## Stop conditions
 
-Stop and report a blocker before mutation when:
-
-- an authority source is missing, cannot be verified, or differs from its required verbatim copy;
-- the target worktree is not the declared isolated branch or contains unexplained prior changes;
-- a requested artifact is outside the Task 4 files or belongs to another worktree;
-- completing the slice requires changing the SDD, plan, copied authority inputs, bootstrap record, or evidence claim;
-- a generated artifact would introduce runtime behavior, MCP handlers, filesystem or scanner behavior, classification, receipts, UUID generation, hashing, journal, reconciliation, fixtures, fake tools, unsafe capability, or a dependency;
-- evidence would require claiming a test, build, commit, or final SHA that does not exist.
+Stop and report a blocker before mutation when an authority source is missing or differs from its required verbatim copy; the target is not the declared worktree or has unexplained changes; a requested artifact is outside Task 5 paths; the slice requires a prohibited behavior; or an evidence claim cannot be made truthfully.
 
 ## Validation expectations
 
-For Task 4, validate with `cargo fmt --all --check`, `cargo check --workspace --locked`, a scope inspection limited to the three permitted core paths, and `git diff --cached --check` for the staged candidate. Implementers do not stage; the parent orchestrator stages the reviewed paths before receipt validation and the approved Task 4 Conventional Commit. Do not claim MCP runtime, filesystem, scanner, classification, receipt, UUID, hashing, journal, reconciliation, fixture, CI, or dependency results. Task 5 is permitted only after the Task 4 commit.
+For Task 5, run focused path-policy tests, `cargo fmt --all --check`, `cargo check --workspace --locked`, `git diff --check`, and a scope inspection confirming only permitted Task 5 paths changed. Implementers do not stage. The parent orchestrator stages the reviewed paths before receipt validation and the planned Task 5 commit. Do not claim MCP runtime, scanner, metadata parsing, classification, receipt/UUID/digest, journal/reconciliation, or handler results.
 
 ## References
 

@@ -1,12 +1,12 @@
 # Arsenalero
 
-Arsenalero is a local MCP server project. Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). The current work is **Task 4: domain model and reason codes**.
+Arsenalero is a local MCP server project. Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`), and Task 4 is complete at `bbc3cc9`. The current work is **Task 5: read-only filesystem path policy**.
 
 ## Architecture
 
 ```text
 .
-├── crates/arsenalero-core/  # Shared-library boundary; Task 4 domain contracts and reason codes
+├── crates/arsenalero-core/  # Domain contracts and Task 5 path policy
 ├── crates/arsenalero-mcp/   # Zero-domain-tool stdio MCP server scaffold
 ├── docs/                    # Governance, authority, and dependency evidence
 ├── .codex-plugin/           # Codex plugin metadata
@@ -17,27 +17,22 @@ Arsenalero is a local MCP server project. Bootstrap is complete through **Bootst
 
 ```sh
 cargo fmt --all --check
+cargo test --package arsenalero-core --locked
 cargo check --workspace --locked
-cargo run --locked --package arsenalero-mcp
 ```
 
 The server uses standard input/output and advertises an empty tool list. The plugin runs the same reproducible Cargo command from the repository root. Development mode requires a local Rust toolchain and an available dependency cache; it is not a packaged standalone binary.
 
-## Quality and evaluation status
-
-- `cargo fmt --all --check`: passed.
-- `cargo check --workspace --locked`: passed.
-- Bootstrap Commit 4 verification artifacts are complete historical bootstrap record.
-- Task 4 does not add or revise runtime MCP integration, evaluation contracts, fixtures, CI, `deny.toml`, or the final report.
-
 ## Scope
 
-Task 4 may add only `crates/arsenalero-core/src/domain.rs`, `crates/arsenalero-core/src/error.rs`, and required `crates/arsenalero-core/src/lib.rs` wiring. It adds no MCP handlers, filesystem, scanner, classification implementation, receipts, UUID generation, hashing, journal, reconciliation, fixtures, or dependencies. The MCP server remains a zero-domain-tool stdio boundary. The next permitted task is Task 5 after the Task 4 commit.
+Task 5 defines `PathPolicy`, `CanonicalSkillRoot`, and `CanonicalResourcePath` only. It enforces fail-closed canonical containment and validates traversal, symlinks, file type, size, extension, and path length with focused tests and fixtures. Skill roots remain read-only.
+
+Permitted support is limited to `path_policy.rs`, required `lib.rs` wiring, focused core tests and path-policy fixtures, the approved `proptest` core dev-dependency plus `Cargo.lock`, and truthful Context7 ledger/manifest updates. It adds no scanner or metadata parsing, classification, receipts/UUID/digest behavior, journal/reconciliation, MCP handlers, or domain tools. The MCP boundary remains zero-domain-tool. Task 6 is permitted only after Task 5 is reviewed and committed.
 
 ## Security
 
-The bootstrap accepts protocol messages only over stdio. It performs no network access, shell execution, secret handling, or persistent writes.
+The bootstrap accepts protocol messages only over stdio. Task 5 validates paths without reading resource content, expanding roots, following symlink escapes, or writing inside skill roots. It performs no network access, shell execution, secret handling, or persistent writes.
 
 ## Authority
 
-The repository authority documents and dependency evidence are under `docs/`. Evidence governs dependency and API choices; implementation verification is recorded separately when tests are introduced in the permitted future task.
+Repository authority documents and dependency evidence live under `docs/`. Preserve Bootstrap and Task 4 history and do not rewrite copied authority documents. Record only truthful Task 5 dependency evidence in the owned ledger and manifest.
