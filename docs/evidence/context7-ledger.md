@@ -2,8 +2,8 @@
 
 **Generated:** 2026-07-15
 **Gate:** `CONTEXT7_EVIDENCE_PROTOCOL.md`
-**Scope:** Bootstrap-only dependencies and tooling. Future implementation dependencies remain deferred.
-**Status:** The Bootstrap Commit 3 Rust workspace and zero-domain-tool stdio MCP scaffold are present. `cargo fmt --all --check` and `cargo check --workspace --locked` passed. Runtime MCP protocol integration tests are not run and remain deferred to Commit 4.
+**Scope:** Completed Bootstrap Commit 4 and Task 4 evidence plus the active Task 5 property-test dependency. Other future implementation dependencies remain deferred.
+**Status:** Bootstrap Commit 4 is complete. Task 4 (`bbc3cc9`) is complete. Task 5 is the active read-only core path-policy slice; it adds no MCP domain tools or handlers. Task 5 validation is recorded only when executed.
 
 ## Evidence client provenance
 
@@ -22,7 +22,7 @@
 | `tokio` | `/websites/rs_tokio_1_49_0` | Context7 versioned docs, exact requirement, and lockfile selection: `1.49.0` | Scaffold runtime; no network runtime |
 | `serde` | `/websites/serde_rs` | `1.0.x`; exact lockfile pin pending | Conditional; add only if the bootstrap contract requires it |
 | `schemars` | `/gresau/schemars` | Exact version and direct-use need pending confirmation | Conditional; add only if the SDK/bootstrap requires it |
-| `cargo-deny` | `/websites/embarkstudios_github_io_cargo-deny` | Tool version pending `cargo deny --version`/CI pin | Bootstrap tooling, not a product dependency |
+| `cargo-deny` | `/websites/embarkstudios_github_io_cargo-deny` | `cargo-deny 0.20.2` verified; CI action configured | Bootstrap tooling, not a product dependency |
 
 IDs are evidence of resolver results, not proof that a dependency is version-pinned or implementation-ready.
 
@@ -38,7 +38,7 @@ IDs are evidence of resolver results, not proof that a dependency is version-pin
 - Security implications: stdio only; no network listener or arbitrary execution.
 - Files affected: `crates/arsenalero-mcp/src/{main.rs,server.rs}`.
 - Verification command: `cargo test --workspace --all-features --locked` after the integration test exists.
-- Result: Context7 evidence plus official rmcp 2.2.0 documentation verified the selected API; `cargo fmt --all --check` and `cargo check --workspace --locked` passed. Protocol integration tests are deferred to Commit 4 and were not run.
+- Result: Context7 evidence plus official rmcp 2.2.0 documentation verified the selected API. Bootstrap Commit 4 completed the stdio protocol integration test and final workspace verification.
 
 ## 2026-07-15 — Tokio
 
@@ -52,7 +52,7 @@ IDs are evidence of resolver results, not proof that a dependency is version-pin
 - Security implications: local stdio only; shutdown must not spawn external processes.
 - Files affected: `crates/arsenalero-mcp/src/main.rs`.
 - Verification command: `cargo test --workspace --all-features --locked` after the integration test exists.
-- Result: Context7 evidence verified the documented runtime macro/features; `cargo fmt --all --check` and `cargo check --workspace --locked` passed. An initialized stdio session exited successfully on EOF; EOF before `initialize` is an expected nonzero `ConnectionClosed(initialize request)` degraded state. These are recorded transport observations, not runtime protocol integration tests; those remain deferred to Commit 4 and were not run.
+- Result: Context7 evidence verified the documented runtime macro/features. Bootstrap Commit 4 completed the stdio protocol integration test and final workspace verification. An initialized stdio session exited successfully on EOF; EOF before `initialize` is an expected nonzero `ConnectionClosed(initialize request)` degraded state.
 
 ## 2026-07-15 — Serde
 
@@ -86,15 +86,29 @@ IDs are evidence of resolver results, not proof that a dependency is version-pin
 
 - Requested package/tool: `cargo-deny`
 - Resolved Context7 library ID: `/websites/embarkstudios_github_io_cargo-deny`
-- Requested version: **pending**; record the installed CLI version and pin the CI action/tooling before the CI commit.
+- Requested version: `cargo-deny 0.20.2` verified during Bootstrap Commit 4; CI uses `EmbarkStudios/cargo-deny-action@v2`.
 - Query: advisories, bans, licenses, and sources configuration for a small Rust workspace.
 - Contract learned: the policy covers advisories, bans, licenses, and sources and is executed with `cargo deny check`.
-- Chosen API: **pending local version verification**; this is CI tooling, not a runtime crate.
+- Chosen API: `cargo deny check` with the committed `deny.toml`; this is CI tooling, not a runtime crate.
 - Rejected alternatives: no dependency policy.
 - Security implications: supply-chain checks remain fail-closed in CI.
-- Files affected: future `deny.toml` and `.github/workflows/ci.yml`.
-- Verification command: `cargo deny check` after the workspace and policy exist.
-- Result: Context7 documentation query verified; local CLI/CI version not yet recorded.
+- Files affected: `deny.toml` and `.github/workflows/ci.yml`.
+- Verification command: `cargo deny check`.
+- Result: Context7 documentation query verified; Bootstrap Commit 4 recorded `cargo deny check` passing with `cargo-deny 0.20.2` and configured the CI action.
+
+## 2026-07-15 — `proptest` Task 5 property testing
+
+- Requested package: `proptest`
+- Resolved Context7 library ID: `/proptest-rs/proptest`
+- Requested and selected exact dev requirement: `=1.10.0`.
+- Query: generate relative resource paths for the Task 5 canonical-containment property without adding a production dependency.
+- Contract learned: the documented `proptest!` macro defines property tests; `any::<T>()`, `prop_assert!`, and collection/strategy combinators support generated inputs and assertions.
+- Chosen API: `proptest = "=1.10.0"` under `arsenalero-core` `dev-dependencies` only. The Task 5 property first proves `safe.md` resolves, then asserts every accepted generated relative path resolves under its canonical skill root. Resource extensions are intentionally lowercase UTF-8 only (`md`, `txt`, `json`, `yaml`, `yml`, `toml`).
+- Rejected alternatives: runtime property-test dependency, scanner/parser integration, digesting, UUIDs, metadata parsing, or MCP exposure.
+- Security implications: test-only generation; production path policy remains dependency-free and read-only.
+- Files affected: `crates/arsenalero-core/Cargo.toml`, `Cargo.lock`, and `crates/arsenalero-core/src/path_policy.rs`.
+- Verification command: `cargo test -p arsenalero-core path_policy`.
+- Result: Context7 API/version evidence was resolved before use; the lockfile selected `proptest 1.10.0`. `cargo test -p arsenalero-core path_policy`, `cargo test -p arsenalero-core`, `cargo clippy -p arsenalero-core --all-targets -- -D warnings`, `cargo check --workspace --locked`, and `cargo deny check` passed on 2026-07-15.
 
 ## Deferred until implementation task
 
@@ -106,7 +120,6 @@ The bootstrap prompt explicitly forbids resolving or adding these future impleme
 | `sha2` | **UNRESOLVED**; resolver returned unrelated `/shadcn-ui/ui` | SHA-256 is excluded from bootstrap; stop before any task that needs it |
 | `uuid` | Candidate ID: `/uuid-rs/uuid` | UUIDv7 domain identifiers are excluded from bootstrap |
 | `directories` | Candidate ID: `/git_codeberg_org/dirs_directories-rs` | Runtime data directories are excluded from bootstrap |
-| `proptest` | Candidates include `/proptest-rs/proptest` and `/websites/altsysrq_github_io_proptest-book` | Property testing is future implementation scope |
 
 The full ten-query protocol remains applicable when the corresponding implementation tasks begin. It does not authorize resolving future dependencies during this bootstrap.
 
@@ -116,5 +129,6 @@ The full ten-query protocol remains applicable when the corresponding implementa
 - Cargo manifest/lockfile: present with exact direct requirements `rmcp = =2.2.0` and `tokio = =1.49.0`; lockfile selections are `rmcp 2.2.0` and `tokio 1.49.0`.
 - Formatting: `cargo fmt --all --check` passed.
 - Dependency compilation: `cargo check --workspace --locked` passed.
-- Runtime MCP protocol integration tests: not run; deferred to Commit 4.
-- Context7 evidence: resolver/API queries recorded above; no unrun runtime validation is claimed.
+- Runtime MCP protocol integration tests: Bootstrap Commit 4 completed the stdio integration test; `cargo test --workspace --all-features --locked` passed.
+- Evals, CI, `deny.toml`, and the final bootstrap report: completed in Bootstrap Commit 4 (`479700012a7b20dbcfead01b1af0ec25ffa06308`).
+- Context7 evidence: resolver/API queries recorded above; all reported runtime validation was executed.
