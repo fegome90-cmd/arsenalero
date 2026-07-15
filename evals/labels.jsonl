@@ -1,0 +1,3 @@
+{"case_id":"bootstrap-valid-bilingual","expected":{"classification":{"resources/architecture.md":"DERIVED","resources/validation.md":"DECLARED"},"obligation":{"resources/architecture.md":"RECOMMENDED","resources/validation.md":"REQUIRED"}}}
+{"case_id":"bootstrap-unresolved","expected":{"classification":{"resources/ambiguous.md":"UNRESOLVED"},"obligation":{"resources/ambiguous.md":"UNKNOWN"}}}
+{"case_id":"bootstrap-path-escape","expected":{"reason_code":"RESOURCE_PATH_ESCAPE"}}

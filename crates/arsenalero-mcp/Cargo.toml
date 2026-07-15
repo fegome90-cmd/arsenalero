@@ -8,5 +8,9 @@ license.workspace = true
 rmcp = { version = "=2.2.0", default-features = false, features = ["server", "transport-io"] }
 tokio = { version = "=1.49.0", default-features = false, features = ["macros", "rt-multi-thread"] }
 
+[[test]]
+name = "mcp_bootstrap_stdio"
+path = "../../tests/integration/mcp_bootstrap_stdio.rs"
+
 [lints]
 workspace = true

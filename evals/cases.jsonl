@@ -1,0 +1,3 @@
+{"case_id":"bootstrap-valid-bilingual","fixture":"tests/fixtures/valid_bilingual","capability":"inventory_and_obligation","task":"Inventory a bilingual skill and preserve the distinction between required and recommended resources."}
+{"case_id":"bootstrap-unresolved","fixture":"tests/fixtures/unresolved","capability":"classification_uncertainty","task":"Report an ambiguous resource as unresolved without inventing purpose or obligation."}
+{"case_id":"bootstrap-path-escape","fixture":"tests/fixtures/path_escape","capability":"filesystem_security","task":"Reject a resource reference that escapes the skill root."}
