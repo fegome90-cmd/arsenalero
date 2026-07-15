@@ -4,17 +4,18 @@ Repository-level operating rules for the Arsenalero MCP repository.
 
 ## Bootstrap boundary
 
-This repository is in **bootstrap-only** scope until the four authorized bootstrap commits are complete. Bootstrap Commit 1 and Bootstrap Commit 2 are complete. The current slice is **Bootstrap Commit 3: Rust MCP plugin workspace scaffold**.
+Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). The active slice is **Task 4: domain model and reason codes**.
 
-- Commit 3 may contain only the Rust workspace/crates, plugin metadata, MCP stdio scaffold, toolchain, license, and repository metadata required by its exact commit plan entry.
-- Do not create Commit 4 artifacts: integration tests, fixtures, eval contracts, CI, `deny.toml`, or a final report.
-- Do not create domain tools, domain handlers, or domain code before Task 4 of the approved v1.3 implementation plan.
+- Task 4 may add only `crates/arsenalero-core/src/domain.rs`, `crates/arsenalero-core/src/error.rs`, and required wiring in `crates/arsenalero-core/src/lib.rs`.
+- Do not modify Bootstrap Commit 4 artifacts or copied authority documents in Task 4.
+- Do not create MCP handlers, filesystem or scanner behavior, classification implementation, receipts, UUID generation, hashing, journal or reconciliation behavior, fixtures, or dependencies.
+- Do not create domain tools or domain handlers; the MCP server remains a zero-domain-tool stdio boundary.
 - Do not create fake handlers or advertise future domain tools before their real contracts and implementations exist.
-- Update owned dependency evidence only to keep the Commit 3 ledger and manifest truthful about this scaffold; preserve copied authority hashes and byte counts.
+- Do not update dependency evidence in Task 4; preserve copied authority hashes, byte counts, and the completed bootstrap record.
 - Implementers do not stage or commit and do not modify another worktree. The sole target for implementation is `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`.
 - Work risk is `MEDIUM`; use at most one implementer per task and perform a fresh review after every task.
 
-The bootstrap establishes governance, dependency evidence, and a zero-domain-tool stdio scaffold. It may truthfully claim completed formatting and compilation checks, but not unrun runtime MCP integration tests or domain behavior.
+The completed bootstrap establishes governance, dependency evidence, and a zero-domain-tool stdio scaffold. Task 4 adds only core domain contracts and reason codes; it does not add runtime behavior.
 
 ## Authority hierarchy
 
@@ -43,7 +44,7 @@ The Constitution is copied verbatim from the authorized `constitucion-ai` commit
 ## TDD and Context7 gates
 
 - TDD is mandatory for every future executable behavior: RED (write a failing test), GREEN (minimal implementation), REFACTOR (keep tests green), then run the relevant quality gates.
-- Commit 3 contains only the zero-domain-tool scaffold; runtime protocol integration tests remain deferred to Commit 4.
+- Bootstrap Commit 4 completed the bootstrap verification artifacts. Task 4 does not add or revise runtime MCP integration, fixtures, evaluation contracts, CI, `deny.toml`, or the final report.
 - Before writing code against an external library, resolve the official library with Context7, query the version-specific contract, record the result in the owned evidence ledger, write the contract test, implement, and compile. Do not use remembered APIs.
 - Dependencies not used by the bootstrap remain deferred. The Context7 protocol copy is documentation authority, not runtime evidence.
 
@@ -66,7 +67,7 @@ The complete bootstrap is exactly these four Conventional Commits, with no squas
 3. `chore: scaffold Rust MCP plugin workspace` — Rust workspace, crates, plugin metadata, MCP configuration, toolchain, license, and repository metadata.
 4. `test: verify bootstrap MCP and eval contracts` — MCP integration test, fixtures, evaluation contracts, CI, dependency policy, and final report.
 
-This slice performs only the third scope above. Implementers do not stage or commit, do not modify another worktree, and do not create any later-commit artifact here. After reviewed changes are complete, the parent orchestrator stages the reviewed paths, validates the content-bound receipt, and commits the exact Conventional Commit message for this slice.
+The four bootstrap commits above are historical record and complete. The active Task 4 scope is limited to the domain files listed in the bootstrap boundary. Implementers do not stage or commit and do not modify another worktree. After reviewed Task 4 changes are complete, the parent orchestrator stages the reviewed paths, validates the content-bound receipt, and commits the approved Task 4 Conventional Commit. Task 5 is the next permitted task only after that commit.
 
 The eventual implementation exposes exactly five tools: `arsenal_init`, `arsenal_stage`, `arsenal_issue`, `arsenal_attest`, and `arsenal_reconcile`. The bootstrap server exposes zero tools; it must not create fake handlers or reserve names as advertised capabilities.
 
@@ -88,14 +89,14 @@ Stop and report a blocker before mutation when:
 
 - an authority source is missing, cannot be verified, or differs from its required verbatim copy;
 - the target worktree is not the declared isolated branch or contains unexplained prior changes;
-- a requested artifact belongs to Commit 4 or another worktree;
-- completing the slice requires changing the SDD, plan, copied authority inputs, or any evidence claim beyond truthful Commit 3 status;
-- a generated artifact would introduce runtime behavior, domain code, fake tools, unsafe capability, or an unrecorded dependency;
+- a requested artifact is outside the Task 4 files or belongs to another worktree;
+- completing the slice requires changing the SDD, plan, copied authority inputs, bootstrap record, or evidence claim;
+- a generated artifact would introduce runtime behavior, MCP handlers, filesystem or scanner behavior, classification, receipts, UUID generation, hashing, journal, reconciliation, fixtures, fake tools, unsafe capability, or a dependency;
 - evidence would require claiming a test, build, commit, or final SHA that does not exist.
 
 ## Validation expectations
 
-For this slice, validate the workspace with `cargo fmt --all --check` and `cargo check --workspace --locked`; validate plugin JSON with the official plugin validator and scope checks; verify manifest ledger bytes/hash; inspect forbidden-path and zero-domain-tool absence; and run `git diff --cached --check` for the staged candidate. Implementers do not stage; the parent orchestrator stages the reviewed paths before this candidate validation. Do not claim runtime MCP integration, CI, eval, or domain behavior results.
+For Task 4, validate with `cargo fmt --all --check`, `cargo check --workspace --locked`, a scope inspection limited to the three permitted core paths, and `git diff --cached --check` for the staged candidate. Implementers do not stage; the parent orchestrator stages the reviewed paths before receipt validation and the approved Task 4 Conventional Commit. Do not claim MCP runtime, filesystem, scanner, classification, receipt, UUID, hashing, journal, reconciliation, fixture, CI, or dependency results. Task 5 is permitted only after the Task 4 commit.
 
 ## References
 

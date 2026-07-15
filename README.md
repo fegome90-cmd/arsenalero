@@ -1,12 +1,12 @@
 # Arsenalero
 
-Arsenalero is a local MCP server project. Its current status is **Bootstrap Commit 3 scaffold**: a governed Rust workspace and stdio protocol boundary with no Arsenalero domain behavior.
+Arsenalero is a local MCP server project. Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). The current work is **Task 4: domain model and reason codes**.
 
 ## Architecture
 
 ```text
 .
-├── crates/arsenalero-core/  # Reserved shared-library boundary; no domain behavior
+├── crates/arsenalero-core/  # Shared-library boundary; Task 4 domain contracts and reason codes
 ├── crates/arsenalero-mcp/   # Zero-domain-tool stdio MCP server scaffold
 ├── docs/                    # Governance, authority, and dependency evidence
 ├── .codex-plugin/           # Codex plugin metadata
@@ -27,12 +27,12 @@ The server uses standard input/output and advertises an empty tool list. The plu
 
 - `cargo fmt --all --check`: passed.
 - `cargo check --workspace --locked`: passed.
-- Runtime MCP protocol integration tests: deferred to Bootstrap Commit 4 and not run.
-- Evaluation contracts, fixtures, and CI: deferred to Bootstrap Commit 4 and not present.
+- Bootstrap Commit 4 verification artifacts are complete historical bootstrap record.
+- Task 4 does not add or revise runtime MCP integration, evaluation contracts, fixtures, CI, `deny.toml`, or the final report.
 
 ## Scope
 
-This bootstrap contains no domain tools, resources, prompts, sampling, roots, HTTP transport, persistent state, or domain handlers. It is a scaffold only: do not use it for production workflows, filesystem operations, or domain decisions. The next permitted work is Bootstrap Commit 4 verification, followed by Task 4 in the approved implementation plan.
+Task 4 may add only `crates/arsenalero-core/src/domain.rs`, `crates/arsenalero-core/src/error.rs`, and required `crates/arsenalero-core/src/lib.rs` wiring. It adds no MCP handlers, filesystem, scanner, classification implementation, receipts, UUID generation, hashing, journal, reconciliation, fixtures, or dependencies. The MCP server remains a zero-domain-tool stdio boundary. The next permitted task is Task 5 after the Task 4 commit.
 
 ## Security
 
