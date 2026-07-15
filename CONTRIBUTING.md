@@ -4,11 +4,11 @@ Do not work on `main`. Work only in `/Users/felipe_gonzalez/Developer/arsenalero
 
 Before using an external library API, complete the Context7 evidence gate and record the selected version and contract in `docs/evidence/context7-ledger.md`. Keep changes within the approved task scope, use TDD for executable behavior, and obtain a fresh review after the change.
 
-## Task 5 validation and commit
+## Task 6 validation and commit
 
-Task 4 is complete at `bbc3cc9`. Task 5 is the active slice: read-only filesystem path policy. It may implement only `PathPolicy`, `CanonicalSkillRoot`, and `CanonicalResourcePath`, with fail-closed canonical containment and traversal, symlink, type, size, extension, and path-length checks covered by focused tests and fixtures.
+Task 4 is complete at `bbc3cc9`, and Task 5 is complete at `4b7e953`. Task 6 is the active slice: Markdown scanner and metadata parser. It may implement only pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`, including source byte ranges, relative resource links, inline resource and reference code paths, free-filename warnings, heading/list/adjacent context, and optional Arsenal frontmatter metadata parsing.
 
-Permitted paths are `crates/arsenalero-core/src/path_policy.rs`, required `crates/arsenalero-core/src/lib.rs` wiring, focused core path-policy tests and fixtures, `crates/arsenalero-core/Cargo.toml`, `Cargo.lock` for the approved `proptest` dev-dependency, and truthful Context7 ledger/manifest updates. Do not alter Bootstrap or Task 4 history, copied authority documents, scanner or metadata parsing, classification, receipts/UUID/digest behavior, journal/reconciliation, MCP handlers, or domain tools.
+Permitted paths are the existing Task 6 implementation paths, required `crates/arsenalero-core/src/lib.rs` wiring, focused Task 6 tests and fixtures already present in the worktree, `crates/arsenalero-core/Cargo.toml`, `Cargo.lock` for the approved parser dependency, and truthful Context7 ledger/manifest updates. Do not alter Bootstrap, Task 4, or Task 5 history; copied authority documents; classification; digests/UUIDs; receipts; journal/reconciliation; MCP handlers or tools; filesystem access; execution; network access; or HTML/script execution.
 
 Run these commands from the isolated worktree:
 
@@ -20,10 +20,6 @@ git diff --check
 git status --short
 ```
 
-Inspect the diff and status to confirm only permitted Task 5 paths changed. Implementers do not stage or commit. The parent orchestrator stages the reviewed paths, validates the content-bound receipt, and makes the planned commit:
+Inspect the diff and status to confirm only permitted Task 6 paths changed. Implementers do not stage or commit. The parent orchestrator stages the reviewed paths, validates the content-bound receipt, and makes the planned Task 6 commit.
 
-```text
-feat: enforce read-only skill path policy
-```
-
-The MCP server remains a zero-domain-tool stdio boundary. Task 6 is permitted only after Task 5 is reviewed and committed.
+The MCP server remains a zero-domain-tool stdio boundary, and the eventual implementation exposes exactly five tools. Task 7 deterministic classification is permitted only after Task 6 is reviewed and committed.
