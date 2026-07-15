@@ -1,0 +1,20 @@
+{
+  "name": "arsenalero",
+  "version": "0.1.0",
+  "description": "Local stdio MCP server scaffold for Arsenalero.",
+  "author": {
+    "name": "Arsenalero maintainers"
+  },
+  "interface": {
+    "displayName": "Arsenalero",
+    "shortDescription": "Use the local Arsenalero MCP scaffold in Codex.",
+    "longDescription": "Arsenalero adds a local stdio MCP bootstrap scaffold.",
+    "developerName": "Arsenalero maintainers",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Start the Arsenalero bootstrap MCP server."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

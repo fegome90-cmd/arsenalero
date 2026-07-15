@@ -1,37 +1,30 @@
 # Arsenalero MCP Bootstrap Charter
 
-## Intent
+## Intent and current stage
 
-Establish a truthful, reviewable governance and authority baseline for Arsenalero MCP v1.3 before any executable implementation begins. Bootstrap Commit 1 preserves approved design material and defines the boundaries for later dependency, workspace, and test slices.
+The four-commit bootstrap establishes a truthful, reviewable foundation before domain implementation. Bootstrap Commit 1 (constitutional baseline) and Bootstrap Commit 2 (dependency evidence) are complete. The current, uncommitted slice is Bootstrap Commit 3: a Rust MCP plugin workspace scaffold. It establishes a local stdio protocol boundary with zero domain tools; it does not implement Arsenalero domain behavior.
 
 ## Risk
 
-**MEDIUM.** The current slice is documentation-only, but it governs a future local MCP server that will read skill resources, issue content, record attestations, and reconcile evidence. The primary risks are authority drift, premature capability, false evidence, and confusion between planned and implemented controls.
+**MEDIUM.** The scaffold compiles and provides a zero-tool MCP boundary, but runtime protocol integration tests remain deferred. Primary risks are authority drift, premature capability, false evidence, and treating planned safety controls as implemented.
 
 ## Scope
 
-This slice includes:
+Commit 3 may update only the isolated worktree `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree` and may contain:
 
-- the canonical Agentic Constitution copied verbatim;
-- the approved SDD, implementation plan, audit, review findings, and changelog copied as authority documents;
-- the historical input report and Context7 protocol retained as authoritative external inputs for their later owned slices;
-- repository operating rules in `AGENTS.md`;
-- this bootstrap charter;
-- ADRs for the global MCP, deterministic classification, and observer-not-enforcer boundary;
-- the initial threat model.
+- the governed Rust workspace and its `arsenalero-core` and `arsenalero-mcp` crates;
+- zero-domain-tool stdio MCP server scaffolding;
+- Codex plugin metadata and local MCP configuration;
+- the pinned Rust toolchain, license, and repository metadata;
+- truthful updates to the Context7 ledger and bootstrap manifest needed to reflect this existing scaffold.
 
-The work is limited to `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree` and must not stage or commit.
+Implementers do not stage or commit in this slice. After reviewed changes are complete, the parent orchestrator stages the reviewed paths, validates the content-bound receipt, and commits the exact Conventional Commit message for Commit 3.
 
-## Non-goals
+## Non-goals and Commit 4 boundary
 
-This slice does not create or modify:
+This slice does not add domain tools, domain handlers, domain state, resources, prompts, sampling, roots, HTTP, persistence, network access, shell execution, or arbitrary process execution. It also must not create Bootstrap Commit 4 artifacts: runtime MCP integration tests, fixtures, evaluation contracts, CI, `deny.toml`, or a final report. Scanner, classification, path-policy implementation, receipts, cases, journal, attestations, reconciliation, validation adapters, hooks, UI, and future implementation dependencies remain out of scope.
 
-- Rust or Cargo files, plugin metadata, MCP configuration, MCP server code, domain tools, handlers, tests, fixtures, evals, CI, `deny.toml`, or runtime persistence;
-- `docs/evidence/context7-ledger.md`, which belongs to the dependency-evidence slice;
-- `bootstrap-manifest.json` or a final report;
-- scanner, classification, REQUIRED calculation, path policy implementation, receipts, cases, journal, attestations, reconciliation, validation adapters, hooks, UI, network, shell, or arbitrary execution.
-
-No domain tools or domain code may be created before Task 4 of the approved implementation plan.
+No domain tools or domain code may be created before Task 4 of the approved implementation plan. The server may advertise MCP tools capability only with an empty list; it must not advertise or fake future domain tool names.
 
 ## Authority hierarchy
 
@@ -47,69 +40,44 @@ When authority conflicts, use:
 8. historical input report v1.1;
 9. current official library documentation only for API and version facts.
 
-Library documentation cannot change the product scope or domain contracts defined by the higher authorities.
-
-## Expected artifacts
-
-- `AGENTIC-CONSTITUTION-v1.0.md`
-- `AGENTS.md`
-- `docs/architecture/ARSENALERO_MCP_SDD_v1.3.md`
-- `docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md`
-- `docs/audit/ARSENALERO_MCP_AUDIT_AI_ENGINEERING_v1.3.md`
-- `docs/audit/REVIEW_FINDINGS_v1.3.md`
-- `docs/audit/CHANGELOG_v1.3.md`
-- `docs/governance/BOOTSTRAP_CHARTER.md`
-- `docs/adr/0001-global-mcp.md`
-- `docs/adr/0002-deterministic-classification.md`
-- `docs/adr/0003-observer-not-enforcer.md`
-- `docs/security/threat-model.md`
+Library documentation cannot change product scope or domain contracts defined by higher authorities.
 
 ## Validation plan
 
-For Commit 1, validation is limited to documentation and provenance:
+For the current scaffold, validation is limited to what exists:
 
-1. verify the target branch/worktree and absence of unexplained prior files;
-2. compare every verbatim copy byte-for-byte with its authorized source;
-3. calculate source and target byte counts and SHA-256 digests for review evidence;
-4. inspect authored documents for the required sections and scope boundaries;
-5. verify that no later-commit artifact or owned evidence ledger was created;
-6. run `git diff --check` only if it can be run without staging or committing.
+1. verify the isolated target worktree and its scoped diff;
+2. run `cargo fmt --all --check` and `cargo check --workspace --locked`;
+3. parse plugin/MCP JSON and run the official plugin validator and scope check;
+4. verify the ledger SHA-256 and byte count recorded in `bootstrap-manifest.json`;
+5. verify that no Commit 4 artifacts or domain tool names exist;
+6. after the parent orchestrator stages the reviewed paths, run `git diff --cached --check` against the staged candidate.
 
-Rust, Cargo, MCP, plugin, Context7, CI, test, and eval validation belongs to later commits and must not be claimed here.
+Runtime MCP protocol integration tests, eval contracts, fixtures, CI, and dependency-policy validation are not run here and must be reported as deferred to Commit 4.
 
-## Evidence plan
+## Evidence convention
 
-Authority-copy provenance will be recorded in the dependency-evidence slice. Per the authorized convention, `bootstrap-manifest.json` will record the **pre-finalization commit SHA**, source/target hashes, and byte counts. The final commit SHA is recorded only in an external post-commit report; it must not be inserted into `bootstrap-manifest.json` or another in-tree artifact.
+The Commit 2 manifest retains copied authority hashes and byte counts. It records the current ledger provenance and the **pre-finalization commit SHA** for this slice: `a8cede82aca0dc41740b924ce13d4d565b5a0171`. The final Commit 3 SHA belongs **only** in an external post-commit report and must never be written into the manifest or another in-tree artifact.
 
-This slice does not create the manifest, the final report, or `docs/evidence/context7-ledger.md`. The Context7 protocol remains an authoritative external input until the dependency-evidence slice copies and records it; it is not represented as completed dependency evidence here.
+Evidence must distinguish a present scaffold and passed formatting/compilation checks from deferred runtime integration validation. It must not claim protocol tests, CI, evaluation, domain behavior, or a final SHA that does not exist.
 
 ## Commit plan
 
-The bootstrap has exactly four commits, with no squash:
+The bootstrap has exactly four Conventional Commits, with no squash:
 
-1. `docs: establish constitutional bootstrap baseline` — this charter, Constitution, AGENTS, approved authority copies, ADRs, and threat model.
+1. `docs: establish constitutional bootstrap baseline` — Constitution, AGENTS, charter, approved authority copies, ADRs, and initial threat model.
 2. `docs: record bootstrap dependency evidence` — Context7 evidence, dependency decisions, deferred dependencies, and the initial manifest.
 3. `chore: scaffold Rust MCP plugin workspace` — workspace, crates, plugin metadata, MCP configuration, toolchain, license, and repository metadata.
 4. `test: verify bootstrap MCP and eval contracts` — integration test, fixtures, eval contracts, CI, dependency policy, and final report.
 
-Bootstrap Commit 1 is intentionally left uncommitted in this task. No staging or commit is authorized.
-
 ## Rollback
 
-Rollback is a path-scoped removal of the Commit 1 artifacts listed in **Expected artifacts**. It must not delete, reset, or rewrite the authority source repository, the shared `arsenalero` checkout, or any other worktree. If any later slice has begun, rollback requires an explicit review of dependent paths before removal.
+Rollback is a path-scoped removal of the Commit 3 scaffold artifacts. It must not delete, reset, rewrite, or stage authority sources, the shared `arsenalero` checkout, or another worktree. Preserve Commit 1/2 authority evidence unless an explicitly scoped correction is required.
 
 ## Stop conditions
 
-Stop before further mutation if:
-
-- the canonical Constitution or any required authority source cannot be verified;
-- a required verbatim copy is not byte-identical;
-- the target contains unexplained prior changes or is not the isolated bootstrap worktree;
-- a requested file belongs to a later commit or the dependency-evidence owner;
-- a source/target path boundary is ambiguous;
-- the change would introduce executable behavior, a future tool, an unverified API, or a security capability;
-- truthful evidence would require a test, commit, final SHA, or runtime claim that does not exist.
+Stop before mutation if an authority source cannot be verified; the target is not the isolated worktree; a requested change belongs to Commit 4 or another worktree; a copied authority hash/byte count would be altered; a change introduces domain behavior, future tool names, unsafe capability, or unverified API; or truthful evidence would require a runtime test, commit, or final SHA that does not exist.
 
 ## Definition of done
 
-Commit 1 is complete when all expected artifacts exist in the target worktree, the authority copies are byte-identical to their approved sources, the authored documents contain the required governance/decision/security content, no forbidden later-commit artifact exists, `docs/evidence/context7-ledger.md` is unchanged/absent, and the resulting status can be reported without claiming tests or commits. The next permitted work is Bootstrap Commit 2, subject to a fresh scope check.
+Commit 3 is ready for its fresh re-audit when the scoped workspace/plugin scaffold exists, exact dependency requirements agree with the locked selections, the declared formatting and workspace compilation checks pass, plugin JSON/validation passes, the manifest matches the current ledger hash and byte count, Commit 4 artifacts and domain tool names remain absent, and the parent orchestrator can stage reviewed paths, validate the receipt, and commit the exact Conventional Commit message. Commit 4 verification is the only next bootstrap slice.

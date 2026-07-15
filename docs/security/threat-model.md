@@ -2,7 +2,7 @@
 
 ## Purpose and current status
 
-This document describes the security boundary for the approved Arsenalero MCP v1.3 design and explicitly separates **planned mitigations** from controls present in Bootstrap Commit 1. Bootstrap Commit 1 is documentation-only. It implements no server, path policy, plugin, MCP transport, persistence, or runtime security control.
+This document describes the security boundary for the approved Arsenalero MCP v1.3 design and explicitly separates **planned mitigations** from controls present in Bootstrap Commit 3. The current tree contains a compiling Rust workspace, local Codex plugin/MCP metadata, and a zero-domain-tool local stdio rmcp scaffold. It contains no domain tools, handlers, state, network/HTTP transport, shell or arbitrary-process capability, secrets, or persistent state.
 
 ## Assets
 
@@ -42,7 +42,7 @@ This document describes the security boundary for the approved Arsenalero MCP v1
 |---|---|---|---|
 | Path traversal or symlink escape | Read outside the authorized skill root; possible data exposure | Canonicalize paths, enforce explicit allowed roots, reject traversal and symlink escapes, keep roots read-only | No runtime path handling exists; boundary is documented only |
 | Resource prompt injection | Server follows hostile content or changes classification/permissions | Treat resources as data; never execute, follow URLs, obey embedded instructions, or use an LLM | No runtime consumer exists; the threat and prohibition are documented |
-| Arbitrary execution or network egress | Host compromise, exfiltration, non-reproducible behavior | No shell, process execution, network, HTTP, hooks, listener, or dynamic loading | No executable artifact exists; no runtime claim is made |
+| Arbitrary execution or network egress | Host compromise, exfiltration, non-reproducible behavior | No shell, process execution, network, HTTP, hooks, listener, or dynamic loading | The compiling local stdio scaffold exposes no such capability; this is scope/configuration evidence, not a proof against host compromise |
 | Resource/skill drift | False attestation or incorrect close status | Bind future receipts/cases to digests; reject stale pre-attestation; mark post-attestation changes for review; invalidate on `SKILL.md` drift | No receipts or digest checks exist; the future contract is preserved in the SDD |
 | Cross-case confusion or replay | Evidence from one skill/case is attributed to another | Enforce case ownership, unique receipts, digest checks, and explicit reason codes | No case state exists; the isolation requirement is documented |
 | Evidence inflation | User mistakes a reference or self-report for external verification | Separate delivery, attestation, artifact reference, and verification; report verification as unsupported until a trusted validator exists | Authored docs explicitly state the distinction; no evidence system exists |
@@ -64,29 +64,29 @@ The future implementation must provide, and verify with tests, at least:
 - append-only journal events with corruption detection, without claiming cryptographic signatures;
 - adversarial fixtures for traversal, symlink, malformed, oversized, hostile-content, drift, and cross-case inputs.
 
-## Mitigations present in Bootstrap Commit 1
+## Mitigations present in Bootstrap Commit 3
 
 - The canonical Constitution is copied from the explicitly authorized commit rather than reconstructed.
 - Approved SDD, plan, audit, review findings, and changelog are preserved as authority copies; the input report and Context7 protocol remain external authority inputs for later slices.
-- `AGENTS.md` and the charter impose fail-closed scope, no runtime/domain artifacts, no network/shell/arbitrary execution, no fake tools, and no untruthful evidence claims.
+- `AGENTS.md` and the charter impose fail-closed scope, no domain artifacts, no network/shell/arbitrary execution, no fake tools, and no untruthful evidence claims.
 - ADRs make the global-server, deterministic-classification, and observer-not-enforcer boundaries explicit.
-- This model distinguishes planned controls from implemented controls and records that no runtime control is present yet.
-- The dependency evidence ledger, bootstrap manifest, and final report are not fabricated in this slice; their ownership and SHA convention are documented instead.
+- The Rust workspace and rmcp local-stdio server scaffold compile with an empty tools list; no domain tools, handlers, state, resources, prompts, sampling, roots, network/HTTP, shell, arbitrary process, secrets, or persistence are implemented.
+- The dependency evidence ledger and bootstrap manifest record the present scaffold and exact locked dependencies. Runtime protocol integration tests and the final report remain deferred to Commit 4.
 
 ## Residual risks
 
 - Documentation does not enforce filesystem, process, network, or MCP boundaries.
-- No executable code, tests, plugin metadata, dependency policy, CI, or runtime evidence exists yet.
+- The scaffold has no runtime protocol integration tests, dependency policy, or CI yet; plugin metadata and compile evidence exist but do not prove runtime protocol behavior.
 - The target has no implementation-level protection against hostile inputs until later tasks are completed and tested.
 - Authority copies can be misused if an implementer ignores the hierarchy or treats examples as guarantees.
 - A future local process may still be exposed to host-level compromise outside Arsenalero's control.
-- The final commit SHA and dependency evidence are intentionally deferred to their authorized evidence/commit slices.
+- The final commit SHA remains external-only; runtime protocol integration evidence is deferred to Commit 4.
 
 ## Non-guarantees
 
-Bootstrap Commit 1 does **not** guarantee:
+Bootstrap Commit 3 does **not** guarantee:
 
-- that the repository compiles or that a server starts;
+- that the server completes the MCP runtime protocol under all client scenarios;
 - that MCP `initialize` succeeds or `tools/list` is empty;
 - that roots, symlinks, resource contents, receipts, or journals are secured at runtime;
 - that network, shell, arbitrary execution, hooks, or secrets are technically impossible;

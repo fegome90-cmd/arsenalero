@@ -55,8 +55,8 @@
       "copied_verbatim": true
     }
   ],
-  "bootstrap_scope": "dependency evidence only",
-  "bootstrap_status": "Bootstrap-only. No Rust code, Cargo manifest, plugin manifest, MCP configuration, tests, evals, CI, dependency lockfile, domain tools, or domain behavior are present in this owned evidence slice.",
+  "bootstrap_scope": "Bootstrap Commit 3 Rust MCP plugin workspace scaffold",
+  "bootstrap_status": "Bootstrap Commit 1 and Commit 2 are complete. The Rust workspace, plugin manifest, MCP configuration, Cargo manifest/lockfile, and zero-domain-tool stdio scaffold are present. cargo fmt --all --check and cargo check --workspace --locked passed. Runtime MCP integration tests, evals, CI, deny.toml, and final report remain deferred to Commit 4. No domain tools or domain behavior are present.",
   "context7_client_provenance": {
     "path": "/tmp/context7_client.js",
     "sha256": "843ac91b80beda4ecb683b43a40823816717aaba9edb271a393bcfe57ccdc630"
@@ -66,12 +66,12 @@
       {
         "dependency": "rmcp",
         "id": "/websites/rs_rmcp_rmcp",
-        "status": "Resolved for bootstrap evidence; exact crate version remains pending Cargo.toml and Cargo.lock pinning."
+        "status": "Resolved for the zero-tool scaffold; exact direct requirement =2.2.0 and lockfile selection 2.2.0. Runtime MCP integration tests are deferred to Commit 4."
       },
       {
         "dependency": "tokio",
         "id": "/websites/rs_tokio_1_49_0",
-        "status": "Resolved in versioned Context7 documentation at 1.49.0; final dependency pin remains pending Cargo.lock."
+        "status": "Context7 versioned documentation, selected exact direct requirement, and lockfile selection are 1.49.0. Runtime MCP integration tests are deferred to Commit 4."
       },
       {
         "dependency": "serde",
@@ -120,27 +120,36 @@
   ],
   "manifest_version": "1.0.0",
   "sha_convention": {
-    "pre_finalization_commit_sha": null,
+    "pre_finalization_commit_sha": "a8cede82aca0dc41740b924ce13d4d565b5a0171",
     "final_commit_sha_location": "external post-commit report only"
   },
   "verbatim_evidence_and_input_copies": [
     {
-      "bytes": 8792,
-      "destination_path": "docs/evidence/context7-ledger.md",
-      "sha256": "957d4d4a22372b629a2125e10bcd5326f78cf75743ad0ef083145c88dedcac7c",
-      "source_path": "/Users/felipe_gonzalez/Developer/arsenalero-worktree/docs/evidence/context7-ledger.md"
-    },
-    {
       "bytes": 4777,
+      "copied_verbatim": true,
       "destination_path": "docs/evidence/CONTEXT7_EVIDENCE_PROTOCOL.md",
       "sha256": "374fe8e81a75a18c915f5a630a5ec8ef944e7fbafceeb06b44ae0fc427f0270b",
       "source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/CONTEXT7_EVIDENCE_PROTOCOL.md"
     },
     {
       "bytes": 6588,
+      "copied_verbatim": true,
       "destination_path": "docs/audit/INPUT_REPORT_v1.1.md",
       "sha256": "00e0625c5d5c56d6bdabc0aeb2d6a90657095c94162667af9d7abd8236c354c6",
       "source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/INPUT_REPORT_v1.1.md"
+    }
+  ],
+  "updated_evidence": [
+    {
+      "copied_verbatim": false,
+      "current_bytes": 9977,
+      "current_sha256": "17c762b5cf79791f96a5613d0a9927d93ddd8a72e9e8a7f3e9b71e1741a44dc1",
+      "destination_path": "docs/evidence/context7-ledger.md",
+      "modified_by": "Bootstrap Commit 3",
+      "original_bytes": 8792,
+      "original_sha256": "957d4d4a22372b629a2125e10bcd5326f78cf75743ad0ef083145c88dedcac7c",
+      "original_source_path": "/Users/felipe_gonzalez/Developer/arsenalero-worktree/docs/evidence/context7-ledger.md",
+      "reason": "Records the selected exact dependency requirements and actual scaffold validation while preserving the original source copy as immutable evidence."
     }
   ],
   "zero_domain_tools": true,

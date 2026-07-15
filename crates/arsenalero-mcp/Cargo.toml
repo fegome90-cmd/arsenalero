@@ -1,0 +1,12 @@
+[package]
+name = "arsenalero-mcp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+rmcp = { version = "=2.2.0", default-features = false, features = ["server", "transport-io"] }
+tokio = { version = "=1.49.0", default-features = false, features = ["macros", "rt-multi-thread"] }
+
+[lints]
+workspace = true

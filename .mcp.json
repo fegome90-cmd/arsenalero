@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "arsenalero": {
+      "cwd": ".",
+      "command": "cargo",
+      "args": ["run", "--locked", "--package", "arsenalero-mcp"]
+    }
+  }
+}

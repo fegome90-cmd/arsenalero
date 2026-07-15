@@ -3,7 +3,7 @@
 **Generated:** 2026-07-15
 **Gate:** `CONTEXT7_EVIDENCE_PROTOCOL.md`
 **Scope:** Bootstrap-only dependencies and tooling. Future implementation dependencies remain deferred.
-**Status:** No Rust code or tests have been written or executed in this worktree.
+**Status:** The Bootstrap Commit 3 Rust workspace and zero-domain-tool stdio MCP scaffold are present. `cargo fmt --all --check` and `cargo check --workspace --locked` passed. Runtime MCP protocol integration tests are not run and remain deferred to Commit 4.
 
 ## Evidence client provenance
 
@@ -18,8 +18,8 @@
 
 | Dependency/tooling | Context7 ID | Version status | Bootstrap disposition |
 | --- | --- | --- | --- |
-| `rmcp` | `/websites/rs_rmcp_rmcp` | Exact crate version pending pinning in `Cargo.toml` and `Cargo.lock` | Candidate for the zero-tool stdio server |
-| `tokio` | `/websites/rs_tokio_1_49_0` | Context7 versioned docs: `1.49.0`; lockfile pin pending | Candidate runtime; no network runtime |
+| `rmcp` | `/websites/rs_rmcp_rmcp` | exact requirement `=2.2.0`; lockfile selection `2.2.0` | Zero-tool stdio server scaffold |
+| `tokio` | `/websites/rs_tokio_1_49_0` | Context7 versioned docs, exact requirement, and lockfile selection: `1.49.0` | Scaffold runtime; no network runtime |
 | `serde` | `/websites/serde_rs` | `1.0.x`; exact lockfile pin pending | Conditional; add only if the bootstrap contract requires it |
 | `schemars` | `/gresau/schemars` | Exact version and direct-use need pending confirmation | Conditional; add only if the SDK/bootstrap requires it |
 | `cargo-deny` | `/websites/embarkstudios_github_io_cargo-deny` | Tool version pending `cargo deny --version`/CI pin | Bootstrap tooling, not a product dependency |
@@ -30,29 +30,29 @@ IDs are evidence of resolver results, not proof that a dependency is version-pin
 
 - Requested package: `rmcp` (official Rust MCP SDK)
 - Resolved Context7 library ID: `/websites/rs_rmcp_rmcp`
-- Requested version: **pending**; select one stable crate version and record it in `Cargo.toml` and `Cargo.lock` before implementation.
+- Requested version: `2.2.0`, selected from official current rmcp documentation; exact requirement `=2.2.0` and lockfile selection `2.2.0`.
 - Query: zero-tool MCP server over `stdio`; lifecycle, `initialize`, `tools/list == []`, no resources/prompts/sampling/roots/HTTP.
 - Contract learned: `rmcp::transport::io::stdio()` is available with `transport-io` plus `server` or `client`; `RoleServer::serve_with_ct` supports cancellation-token-driven serving. Tool macros are not needed for the bootstrap because no tools are registered.
-- Chosen API: **pending exact-version verification**; minimum feature set must include `server` and `transport-io` for server-side stdio.
+- Chosen API: `rmcp = 2.2.0` with `default-features = false` and `server`, `transport-io`; `ServerHandler`, `ServerInfo::new`, `Implementation::new`, `transport::stdio`, and `ServiceExt::serve` provide the zero-tool stdio server and transport-close shutdown.
 - Rejected alternatives: HTTP transport, dynamic registration, domain tool macros, resources, prompts, sampling, and roots.
 - Security implications: stdio only; no network listener or arbitrary execution.
-- Files affected: future `crates/arsenalero-mcp/src/{main.rs,server.rs}` only.
+- Files affected: `crates/arsenalero-mcp/src/{main.rs,server.rs}`.
 - Verification command: `cargo test --workspace --all-features --locked` after the integration test exists.
-- Result: Context7 resolver and API query verified; exact crate version and implementation test are pending.
+- Result: Context7 evidence plus official rmcp 2.2.0 documentation verified the selected API; `cargo fmt --all --check` and `cargo check --workspace --locked` passed. Protocol integration tests are deferred to Commit 4 and were not run.
 
 ## 2026-07-15 — Tokio
 
 - Requested package: `tokio`
 - Resolved Context7 library ID: `/websites/rs_tokio_1_49_0`
-- Requested version: `1.49.0` in the versioned Context7 documentation; final dependency pin remains pending until `Cargo.lock` exists.
+- Requested documentation version: `1.49.0` in Context7's versioned documentation. The selected dependency is exact requirement `=1.49.0` and lockfile selection `1.49.0`.
 - Query: minimal async main and graceful shutdown for the selected `rmcp` stdio transport; exclude network runtimes.
 - Contract learned: `#[tokio::main]` requires the runtime/macros features; the exact shutdown integration must be checked against the selected `rmcp` version.
-- Chosen API: **pending implementation test**; no `TcpListener` or network runtime.
+- Chosen API: `tokio = =1.49.0` with only `macros` and `rt-multi-thread`; no `TcpListener`, `signal`, process, or network runtime features.
 - Rejected alternatives: network transports and unnecessary runtime features.
 - Security implications: local stdio only; shutdown must not spawn external processes.
-- Files affected: future `crates/arsenalero-mcp/src/main.rs`.
+- Files affected: `crates/arsenalero-mcp/src/main.rs`.
 - Verification command: `cargo test --workspace --all-features --locked` after the integration test exists.
-- Result: Context7 documentation query verified; implementation test not run.
+- Result: Context7 evidence verified the documented runtime macro/features; `cargo fmt --all --check` and `cargo check --workspace --locked` passed. An initialized stdio session exited successfully on EOF; EOF before `initialize` is an expected nonzero `ConnectionClosed(initialize request)` degraded state. These are recorded transport observations, not runtime protocol integration tests; those remain deferred to Commit 4 and were not run.
 
 ## 2026-07-15 — Serde
 
@@ -112,9 +112,9 @@ The full ten-query protocol remains applicable when the corresponding implementa
 
 ## Verification state
 
-- Rust code: not written.
-- Integration tests: not written.
-- Cargo manifest/lockfile: not present in this baseline.
-- Dependency compilation: not run.
-- Runtime tests: not run.
-- Context7 evidence: resolver/API queries recorded above; implementation results remain pending.
+- Rust scaffold: present; it provides a stdio MCP server with tools capability and an empty tool list, with no domain handlers or domain tools.
+- Cargo manifest/lockfile: present with exact direct requirements `rmcp = =2.2.0` and `tokio = =1.49.0`; lockfile selections are `rmcp 2.2.0` and `tokio 1.49.0`.
+- Formatting: `cargo fmt --all --check` passed.
+- Dependency compilation: `cargo check --workspace --locked` passed.
+- Runtime MCP protocol integration tests: not run; deferred to Commit 4.
+- Context7 evidence: resolver/API queries recorded above; no unrun runtime validation is claimed.
