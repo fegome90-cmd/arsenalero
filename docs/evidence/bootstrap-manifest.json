@@ -1,0 +1,148 @@
+{
+  "authority_copies_commit_1": [
+    {
+      "canonical_source_commit": "7bb46861055fffb4aa04e8b8550c4706d39a10eb",
+      "canonical_source_git_blob": "60aa2456093e86516c042cd0e1d69202c1028f9b",
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/constitucion-ai/constitution/AGENTIC-CONSTITUTION.md",
+      "destination_path": "AGENTIC-CONSTITUTION-v1.0.md",
+      "sha256": "cfa4f9dfceb68f77619e2dd885ca3231a0967788eee9e940e420e365caf7b713",
+      "bytes": 79343,
+      "copied_verbatim": true
+    },
+    {
+      "canonical_source_commit": null,
+      "canonical_source_git_blob": null,
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/ARSENALERO_MCP_SDD_v1.3.md",
+      "destination_path": "docs/architecture/ARSENALERO_MCP_SDD_v1.3.md",
+      "sha256": "1d6674d6789b3513ab9288bd6b68430c1d4503920e24587c28e06d403efa0eba",
+      "bytes": 23101,
+      "copied_verbatim": true
+    },
+    {
+      "canonical_source_commit": null,
+      "canonical_source_git_blob": null,
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/REVIEW_FINDINGS_v1.3.md",
+      "destination_path": "docs/audit/REVIEW_FINDINGS_v1.3.md",
+      "sha256": "9e52e9a7bd0dfc0d8b4603672410881ac3bf2078d8bb6dc38cec4e5c2e910a61",
+      "bytes": 1460,
+      "copied_verbatim": true
+    },
+    {
+      "canonical_source_commit": null,
+      "canonical_source_git_blob": null,
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/CHANGELOG_v1.3.md",
+      "destination_path": "docs/audit/CHANGELOG_v1.3.md",
+      "sha256": "4493e53f4291cd472a68873dd61494c4f6d0e30e46ed8bfaffa82bf80bff7d1a",
+      "bytes": 670,
+      "copied_verbatim": true
+    },
+    {
+      "canonical_source_commit": null,
+      "canonical_source_git_blob": null,
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md",
+      "destination_path": "docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md",
+      "sha256": "84c0d5af8089114300a351de427cf28bbf1e5567e67f960c20aa31a5447d3321",
+      "bytes": 17035,
+      "copied_verbatim": true
+    },
+    {
+      "canonical_source_commit": null,
+      "canonical_source_git_blob": null,
+      "canonical_source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/ARSENALERO_MCP_AUDIT_AI_ENGINEERING_v1.3.md",
+      "destination_path": "docs/audit/ARSENALERO_MCP_AUDIT_AI_ENGINEERING_v1.3.md",
+      "sha256": "81139871d8a9e308e9fdd6e3850ca918680715208c60c7d2b31110faa725b40a",
+      "bytes": 13423,
+      "copied_verbatim": true
+    }
+  ],
+  "bootstrap_scope": "dependency evidence only",
+  "bootstrap_status": "Bootstrap-only. No Rust code, Cargo manifest, plugin manifest, MCP configuration, tests, evals, CI, dependency lockfile, domain tools, or domain behavior are present in this owned evidence slice.",
+  "context7_client_provenance": {
+    "path": "/tmp/context7_client.js",
+    "sha256": "843ac91b80beda4ecb683b43a40823816717aaba9edb271a393bcfe57ccdc630"
+  },
+  "context7_resolution": {
+    "resolved": [
+      {
+        "dependency": "rmcp",
+        "id": "/websites/rs_rmcp_rmcp",
+        "status": "Resolved for bootstrap evidence; exact crate version remains pending Cargo.toml and Cargo.lock pinning."
+      },
+      {
+        "dependency": "tokio",
+        "id": "/websites/rs_tokio_1_49_0",
+        "status": "Resolved in versioned Context7 documentation at 1.49.0; final dependency pin remains pending Cargo.lock."
+      },
+      {
+        "dependency": "serde",
+        "id": "/websites/serde_rs",
+        "status": "Resolved; conditional direct use remains unestablished."
+      },
+      {
+        "dependency": "schemars",
+        "id": "/gresau/schemars",
+        "status": "Resolved; exact version and direct-use need remain pending confirmation."
+      },
+      {
+        "dependency": "cargo-deny",
+        "id": "/websites/embarkstudios_github_io_cargo-deny",
+        "status": "Resolved for tooling evidence; tool version remains pending local and CI pinning."
+      }
+    ],
+    "unresolved": [
+      {
+        "dependency": "sha2",
+        "status": "UNRESOLVED: the resolver returned unrelated /shadcn-ui/ui; that result is not sha2 authority."
+      }
+    ]
+  },
+  "deferred_until_implementation_task": [
+    {
+      "dependency": "pulldown-cmark",
+      "reason": "Markdown scanner is excluded from bootstrap."
+    },
+    {
+      "dependency": "sha2",
+      "reason": "SHA-256 is excluded from bootstrap; stop before any task that needs it because Context7 resolution is unresolved."
+    },
+    {
+      "dependency": "uuid",
+      "reason": "UUIDv7 domain identifiers are excluded from bootstrap."
+    },
+    {
+      "dependency": "directories",
+      "reason": "Runtime data directories are excluded from bootstrap."
+    },
+    {
+      "dependency": "proptest/future dependencies",
+      "reason": "Property testing and future implementation dependencies are outside bootstrap scope."
+    }
+  ],
+  "manifest_version": "1.0.0",
+  "sha_convention": {
+    "pre_finalization_commit_sha": null,
+    "final_commit_sha_location": "external post-commit report only"
+  },
+  "verbatim_evidence_and_input_copies": [
+    {
+      "bytes": 8792,
+      "destination_path": "docs/evidence/context7-ledger.md",
+      "sha256": "957d4d4a22372b629a2125e10bcd5326f78cf75743ad0ef083145c88dedcac7c",
+      "source_path": "/Users/felipe_gonzalez/Developer/arsenalero-worktree/docs/evidence/context7-ledger.md"
+    },
+    {
+      "bytes": 4777,
+      "destination_path": "docs/evidence/CONTEXT7_EVIDENCE_PROTOCOL.md",
+      "sha256": "374fe8e81a75a18c915f5a630a5ec8ef944e7fbafceeb06b44ae0fc427f0270b",
+      "source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/CONTEXT7_EVIDENCE_PROTOCOL.md"
+    },
+    {
+      "bytes": 6588,
+      "destination_path": "docs/audit/INPUT_REPORT_v1.1.md",
+      "sha256": "00e0625c5d5c56d6bdabc0aeb2d6a90657095c94162667af9d7abd8236c354c6",
+      "source_path": "/Users/felipe_gonzalez/Developer/arsenalero/arsenalero_mcp_sdd_v1_3/INPUT_REPORT_v1.1.md"
+    }
+  ],
+  "zero_domain_tools": true,
+  "zero_domain_behavior": true
+}
