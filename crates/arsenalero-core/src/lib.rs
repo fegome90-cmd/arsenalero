@@ -5,6 +5,8 @@
 
 pub mod domain;
 pub mod error;
+pub mod inventory;
+pub mod markdown;
 pub mod path_policy;
 
 pub use domain::{
@@ -12,4 +14,11 @@ pub use domain::{
     ReconciliationStatus, ResourceId, ResourceKind, ResourceState,
 };
 pub use error::ArsenalError;
+pub use inventory::{ArsenalMetadata, MetadataEvidenceContract, parse_resource_metadata};
+pub use markdown::{
+    Heading, ListItem, ReferenceKind, ResourceReference, SkillDocument, Warning, scan_skill,
+};
 pub use path_policy::{CanonicalResourcePath, CanonicalSkillRoot, PathPolicy};
+
+#[cfg(test)]
+mod task6_tests;

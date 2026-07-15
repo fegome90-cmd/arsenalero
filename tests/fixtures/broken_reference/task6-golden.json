@@ -1,0 +1,6 @@
+{
+  "references": [
+    {"path":"resources/missing.md","kind":"markdown_link","range":[343,375],"heading":"Recovery stage","prose":"- Required: read [rollback](resources/missing.md) before finalizing.","list":["- Required: read [rollback](resources/missing.md) before finalizing."]}
+  ],
+  "warnings": []
+}

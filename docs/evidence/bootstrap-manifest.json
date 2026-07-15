@@ -55,8 +55,8 @@
       "copied_verbatim": true
     }
   ],
-  "bootstrap_scope": "Completed Bootstrap Commit 4 and Task 4 history plus active Task 5 read-only filesystem path policy",
-  "bootstrap_status": "Bootstrap Commit 4 is complete, including runtime MCP integration, evals, CI, deny.toml, and the final bootstrap report in 479700012a7b20dbcfead01b1af0ec25ffa06308. Task 4 bbc3cc9 is complete. Task 5 is the active read-only core path-policy slice and adds only a test-only proptest dependency; no MCP domain tools or handlers are added. Task 5 validation must be recorded from executed commands only.",
+  "bootstrap_scope": "Completed Bootstrap Commit 4 and Tasks 4\u20135 history plus active Task 6 pure Markdown scanner and metadata parser",
+  "bootstrap_status": "Bootstrap Commit 4 is complete, including runtime MCP integration, evals, CI, deny.toml, and the final bootstrap report in 479700012a7b20dbcfead01b1af0ec25ffa06308. Task 4 bbc3cc9 and Task 5 4b7e953 are complete. Task 6 is the active pure core Markdown scanner and metadata-parser slice; it adds only pulldown-cmark =0.13.4 with default-features=false and no MCP domain tools or handlers.",
   "context7_client_provenance": {
     "path": "/tmp/context7_client.js",
     "sha256": "843ac91b80beda4ecb683b43a40823816717aaba9edb271a393bcfe57ccdc630"
@@ -92,6 +92,11 @@
         "dependency": "proptest",
         "id": "/proptest-rs/proptest",
         "status": "Resolved for Task 5 property tests; selected exact core dev requirement =1.10.0."
+      },
+      {
+        "dependency": "pulldown-cmark",
+        "id": "/pulldown-cmark/pulldown-cmark",
+        "status": "Resolved for Task 6 API behavior. Cargo registry search/info separately verified direct requirement =0.13.4 and rust-version 1.71.1; Context7 did not supply the release version."
       }
     ],
     "unresolved": [
@@ -102,10 +107,6 @@
     ]
   },
   "deferred_until_implementation_task": [
-    {
-      "dependency": "pulldown-cmark",
-      "reason": "Markdown scanner is excluded from bootstrap."
-    },
     {
       "dependency": "sha2",
       "reason": "SHA-256 is excluded from bootstrap; stop before any task that needs it because Context7 resolution is unresolved."
@@ -122,7 +123,7 @@
   "manifest_version": "1.0.0",
   "sha_convention": {
     "pre_finalization_commit_sha": "a8cede82aca0dc41740b924ce13d4d565b5a0171",
-    "active_task_pre_finalization_commit_sha": "b8bc274e86d1a3d53223ff5fb658509a8d412c9d",
+    "active_task_pre_finalization_commit_sha": "4b7e953bb4891a1ac640360413b63efcf6dc42f2",
     "final_commit_sha_location": "external post-commit report only"
   },
   "verbatim_evidence_and_input_copies": [
@@ -144,14 +145,14 @@
   "updated_evidence": [
     {
       "copied_verbatim": false,
-      "current_bytes": 11573,
-      "current_sha256": "cb6059a82ed4aba06f57a693164fc65c1938b522561f00286c1cbe6f840148cb",
+      "current_bytes": 13241,
+      "current_sha256": "fa5f2640e06bff7c01ce85629651125811cc3405d04c5ce10515b8bbbe2395b2",
       "destination_path": "docs/evidence/context7-ledger.md",
-      "modified_by": "Task 5 read-only filesystem path policy",
+      "modified_by": "Task 6 Markdown scanner and metadata parser",
       "original_bytes": 8792,
       "original_sha256": "957d4d4a22372b629a2125e10bcd5326f78cf75743ad0ef083145c88dedcac7c",
       "original_source_path": "/Users/felipe_gonzalez/Developer/arsenalero-worktree/docs/evidence/context7-ledger.md",
-      "reason": "Records bootstrap evidence plus the resolved Task 5 proptest dev-dependency contract while preserving the original source copy as immutable evidence."
+      "reason": "Records bootstrap and Task 4\u20136 dependency evidence while preserving the original source copy as immutable evidence."
     }
   ],
   "zero_domain_tools": true,

@@ -1,0 +1,12 @@
+{
+  "references": [
+    {"path":"resources/architecture.md","kind":"markdown_link","range":[147,188],"heading":"Architecture stage","prose":"Recommended context: review architecture before implementation.","list":[]},
+    {"path":"resources/validation.md","kind":"markdown_link","range":[249,286],"heading":"Validation stage","prose":"La evidencia de validation es obligatoria antes de cerrar el trabajo.","list":[]},
+    {"path":"resources/checklist.md","kind":"inline_code","range":[343,367],"heading":"Validation stage","prose":"- Debe usar `resources/checklist.md` antes de finalizar.","list":["- Debe usar `resources/checklist.md` antes de finalizar."]},
+    {"path":"references/protocol.md","kind":"inline_code","range":[399,423],"heading":"Validation stage","prose":"- Consulte `references/protocol.md` antes de completar.\n  - También debe usar `resources/nested.md` para el detalle.","list":["- Consulte `references/protocol.md` antes de completar.\n  - También debe usar `resources/nested.md` para el detalle."]},
+    {"path":"resources/nested.md","kind":"inline_code","range":[467,488],"heading":"Validation stage","prose":"- También debe usar `resources/nested.md` para el detalle.","list":["- Consulte `references/protocol.md` antes de completar.\n  - También debe usar `resources/nested.md` para el detalle.","- También debe usar `resources/nested.md` para el detalle."]}
+  ],
+  "warnings": [
+    {"candidate":"notes.md","range":[511,519],"heading":"Validation stage","prose":"See notes.md for background. External, local, and mail are not resource references.","list":[]}
+  ]
+}

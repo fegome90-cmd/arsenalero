@@ -2,8 +2,8 @@
 
 **Generated:** 2026-07-15
 **Gate:** `CONTEXT7_EVIDENCE_PROTOCOL.md`
-**Scope:** Completed Bootstrap Commit 4 and Task 4 evidence plus the active Task 5 property-test dependency. Other future implementation dependencies remain deferred.
-**Status:** Bootstrap Commit 4 is complete. Task 4 (`bbc3cc9`) is complete. Task 5 is the active read-only core path-policy slice; it adds no MCP domain tools or handlers. Task 5 validation is recorded only when executed.
+**Scope:** Completed Bootstrap Commit 4, Tasks 4–5 evidence, and the active Task 6 Markdown scanner dependency. Other future implementation dependencies remain deferred.
+**Status:** Bootstrap Commit 4 is complete. Tasks 4 (`bbc3cc9`) and 5 (`4b7e953`) are complete. Task 6 is the active pure core Markdown scanner and metadata-parser slice; it adds no MCP domain tools or handlers.
 
 ## Evidence client provenance
 
@@ -110,13 +110,25 @@ IDs are evidence of resolver results, not proof that a dependency is version-pin
 - Verification command: `cargo test -p arsenalero-core path_policy`.
 - Result: Context7 API/version evidence was resolved before use; the lockfile selected `proptest 1.10.0`. `cargo test -p arsenalero-core path_policy`, `cargo test -p arsenalero-core`, `cargo clippy -p arsenalero-core --all-targets -- -D warnings`, `cargo check --workspace --locked`, and `cargo deny check` passed on 2026-07-15.
 
+## 2026-07-15 — `pulldown-cmark` Task 6 Markdown scanning
+
+- Requested package: `pulldown-cmark` for CommonMark event parsing with source byte offsets; rendering, HTML output, script execution, link following, and filesystem access are out of scope.
+- Resolved Context7 library ID: `/pulldown-cmark/pulldown-cmark`.
+- Context7 query: stream headings, list items, inline code, and relative links while preserving source ranges without rendering.
+- Contract learned from Context7: `Parser::into_offset_iter` yields `(Event, Range<usize>)` byte offsets; `Event` and `Tag` support structural parsing of headings, list items, links, and inline code; the pull-parser model retains source mapping without executing Markdown content.
+- Registry verification was separate from Context7: `cargo search pulldown-cmark --limit 5` and `cargo info pulldown-cmark` verified release `0.13.4` and `rust-version: 1.71.1`, compatible with workspace Rust `1.97.0`.
+- Chosen API: exact direct requirement `pulldown-cmark = { version = "=0.13.4", default-features = false }`. `default-features = false` excludes `getopts` and HTML rendering because Task 6 only needs parser events and source offsets.
+- Version provenance: Context7 supplied API behavior, not the release version; Cargo registry commands supplied the version and Rust-version evidence.
+- Files affected: `crates/arsenalero-core/Cargo.toml`, `Cargo.lock`, `crates/arsenalero-core/src/markdown.rs`, and Task 6 fixtures/tests.
+- Verification command: `cargo test -p arsenalero-core markdown --locked`.
+- Result: the scanner uses `Parser::into_offset_iter` for structural discovery and byte ranges; it is pure over the input string and does not access files, execute content, follow URLs, hash, classify, journal, reconcile, or expose MCP tools.
+
 ## Deferred until implementation task
 
 The bootstrap prompt explicitly forbids resolving or adding these future implementation dependencies now. Their presence here is a deferred scope record, not a resolution:
 
 | Future dependency | Context7 status | Deferred reason |
 | --- | --- | --- |
-| `pulldown-cmark` | Candidate ID: `/pulldown-cmark/pulldown-cmark` | Markdown scanner is excluded from bootstrap |
 | `sha2` | **UNRESOLVED**; resolver returned unrelated `/shadcn-ui/ui` | SHA-256 is excluded from bootstrap; stop before any task that needs it |
 | `uuid` | Candidate ID: `/uuid-rs/uuid` | UUIDv7 domain identifiers are excluded from bootstrap |
 | `directories` | Candidate ID: `/git_codeberg_org/dirs_directories-rs` | Runtime data directories are excluded from bootstrap |
