@@ -108,7 +108,7 @@ fn terminate_after_timeout(child: &mut Child, operation: &str) {
 }
 
 #[test]
-fn stdio_bootstrap_negotiates_an_empty_mcp_surface() {
+fn stdio_bootstrap_negotiates_the_five_tool_mcp_surface() {
     let executable = env!("CARGO_BIN_EXE_arsenalero-mcp");
     let mut child = Command::new(executable)
         .stdin(Stdio::piped())
@@ -153,7 +153,19 @@ fn stdio_bootstrap_negotiates_an_empty_mcp_surface() {
     let (_stdout, tools_response) =
         read_line_with_timeout(&mut child, stdout, "tools/list response");
     assert!(tools_response.contains("\"id\":2"));
-    assert!(tools_response.contains("\"tools\":[]"));
+    for tool in [
+        "arsenal_init",
+        "arsenal_stage",
+        "arsenal_issue",
+        "arsenal_attest",
+        "arsenal_reconcile",
+    ] {
+        assert!(
+            tools_response.contains(tool),
+            "missing tool {tool}: {tools_response}"
+        );
+    }
+    assert_eq!(tools_response.matches("\"name\":\"arsenal_").count(), 5);
 
     drop(stdin);
     assert!(

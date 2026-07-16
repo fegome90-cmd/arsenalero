@@ -1,9 +1,9 @@
 # Context7 Evidence Ledger — Arsenalero MCP v1.3
 
-**Generated:** 2026-07-15
+**Generated:** 2026-07-16
 **Gate:** `CONTEXT7_EVIDENCE_PROTOCOL.md`
-**Scope:** Completed Bootstrap Commit 4, Tasks 4–7 evidence, and Task 8 case receipts and digest drift. Other future implementation dependencies remain deferred.
-**Status:** Bootstrap Commit 4 is complete. Tasks 4 (`bbc3cc9`) through 7 (`2d1236e`) are complete. Task 8 adds only core case/receipt/digest behavior; it adds no MCP domain tools or handlers.
+**Scope:** Bootstrap Commit 4, Tasks 4-9 evidence, and Task 10 MCP schemas, handlers, strict inputs, stale-receipt reconciliation, and output contracts.
+**Status:** Task 10 current official Context7 provenance is recorded below. Historical deferred entries remain historical records and are superseded only where the Task 10 implementation now directly uses the dependency.
 
 ## Evidence client provenance
 
@@ -155,3 +155,70 @@ The full ten-query protocol remains applicable when the corresponding implementa
 - Runtime MCP protocol integration tests: Bootstrap Commit 4 completed the stdio integration test; `cargo test --workspace --all-features --locked` passed.
 - Evals, CI, `deny.toml`, and the final bootstrap report: completed in Bootstrap Commit 4 (`479700012a7b20dbcfead01b1af0ec25ffa06308`).
 - Context7 evidence: resolver/API queries recorded above; all reported runtime validation was executed.
+
+
+## 2026-07-16 — Task 10 MCP adapter dependencies and APIs
+
+Task 10 obtained current official Context7 resolver and documentation evidence before relying on the external APIs below. Context7 library IDs identify documentation sources; Cargo manifest and lockfile entries provide the exact selected versions.
+
+| Direct dependency | Context7 library ID | Exact Cargo selection | Task 10 use |
+| --- | --- | --- | --- |
+| rmcp | /websites/rs_rmcp_rmcp | =2.2.0 | ServerHandler, Tool, list_tools, get_tool, call_tool, CallToolResult, stdio service |
+| schemars | /gresau/schemars | =1.2.1 | JsonSchema derives and input/output JSON Schema generation |
+| serde | /websites/serde_rs | =1.0.228 | Serialize/Deserialize derives, field rename/default, deny_unknown_fields |
+| serde_json | /websites/rs_serde_json | =1.0.150 | request decoding, structured values, serialized JSON TextContent |
+| ring | /websites/rs_ring_0_17_14 | =0.17.14 | streaming SHA-256 for post-issue resource drift |
+| uuid | /uuid-rs/uuid | =1.24.0 | case/receipt UUID parsing and stable formatting |
+| tokio | /websites/rs_tokio_1_49_0 | =1.49.0 | #[tokio::main] stdio server runtime |
+
+### rmcp
+
+- Resolver result: official Rust MCP SDK, /websites/rs_rmcp_rmcp, high source reputation.
+- Queries: ServerHandler list/call lifecycle and Tool schema registration.
+- Official API evidence:
+  - ServerHandler::list_tools returns ListToolsResult; call_tool returns CallToolResult for tool execution.
+  - Tool::new creates a named tool with a description and input schema; with_input_schema<T> and with_output_schema<T> register JsonSchema-derived schemas.
+  - CallToolResult::structured(value) emits both structuredContent and a JSON-string TextContent, with isError: false.
+  - CallToolResult::structured_error(value) emits both structured error content and JSON-string TextContent, with isError: true.
+- Official sources: https://docs.rs/rmcp/latest/rmcp/handler/server/trait.ServerHandler.html, https://docs.rs/rmcp/latest/rmcp/model/struct.Tool.html, https://docs.rs/rmcp/latest/rmcp/model/struct.CallToolResult.html.
+- Chosen API: direct ServerHandler implementation with exactly five static Tool definitions and structured/structured_error; no tool router, resources, prompts, sampling, roots, HTTP, or network capability.
+- Files: crates/arsenalero-mcp/src/server.rs, crates/arsenalero-mcp/src/main.rs.
+
+### schemars
+
+- Resolver result: /gresau/schemars, high source reputation.
+- Query: JsonSchema derive and length constraints.
+- Official API evidence: derive(JsonSchema) generates a schema matching the Serde representation; schemars(length(min = 1, max = 10)) maps to minLength/maxLength for strings and minItems/maxItems for arrays.
+- Chosen API: JsonSchema derives for every Task 10 input/output, with max = 4 for issue batches, max = 16 for attestations, and minimum non-empty usage/evidence references.
+- Files: crates/arsenalero-mcp/src/schema.rs, crates/arsenalero-mcp/src/server.rs.
+
+### serde and serde_json
+
+- Resolver results: /websites/serde_rs and /websites/rs_serde_json, both high source reputation.
+- Query: derive serialization/deserialization, strict unknown-field handling, serde(default), field rename, serde_json::to_value, and JSON text serialization.
+- Official API evidence: Serde documents derive(Serialize, Deserialize), serde(deny_unknown_fields), serde(default), and serde(rename = "..."); Serde JSON documents to_value for Value conversion and to_string for JSON text.
+- Chosen API: all external Task 10 input structs deny unknown fields; optional evidence defaults to an empty list; the Rust type field is serialized/deserialized as JSON type; serde_json::from_value decodes requests and rmcp structured constructors provide the compatibility text.
+- Files: crates/arsenalero-mcp/src/schema.rs, crates/arsenalero-mcp/src/server.rs, crates/arsenalero-mcp/src/tools.rs.
+
+### ring and uuid
+
+- Resolver results: /websites/rs_ring_0_17_14 and /uuid-rs/uuid, both high source reputation.
+- Query: streaming SHA-256 and UUID parsing/formatting.
+- Official API evidence: Ring documents digest::Context::new(&SHA256), repeated update, and consuming finish; UUID documents Uuid::parse_str and standard hyphenated formatting.
+- Chosen API: digest_file reads bounded chunks through Ring's streaming context; Uuid::parse_str maps malformed case/receipt IDs to CASE_UNKNOWN, while UUID values are formatted in the standard hyphenated representation.
+- Files: crates/arsenalero-mcp/src/tools.rs.
+
+### tokio
+
+- Resolver result: versioned official documentation /websites/rs_tokio_1_49_0, high source reputation.
+- Query: #[tokio::main] runtime and required features.
+- Official API evidence: Tokio documents #[tokio::main] for async entrypoints, requiring rt plus macros; the multi-threaded flavor requires rt-multi-thread.
+- Chosen API: the existing binary keeps #[tokio::main] with macros and rt-multi-thread, and serves only rmcp stdio.
+- Files: crates/arsenalero-mcp/src/main.rs, crates/arsenalero-mcp/Cargo.toml.
+
+### Task 10 verification provenance
+
+- Context7 resolver/query calls completed on 2026-07-16 through the configured Context7 MCP server.
+- Cargo exact pins were checked against the changed manifest and lockfile.
+- The exact requested cargo test -p arsenalero-mcp was attempted in the worktree and was blocked before compilation by Operation not permitted opening target/debug/.cargo-lock; a supplemental CARGO_TARGET_DIR=/tmp/arsenalero-task-10-target cargo test -p arsenalero-mcp passed after implementation.
+- The known core -D warnings issue remains outside Task 10 scope: cargo clippy -p arsenalero-mcp --all-targets -- -D warnings reports pre-existing arsenalero-core dead-code errors for CaseId::new and ReceiptId::new.
