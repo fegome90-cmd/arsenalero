@@ -40,11 +40,6 @@ macro_rules! uuid_v7_id {
                 Self(Uuid::now_v7())
             }
 
-            /// Wraps an already validated UUID without changing equality, ordering, or hashing.
-            pub(crate) const fn new(value: Uuid) -> Self {
-                Self(value)
-            }
-
             /// Returns the underlying UUID value.
             pub const fn as_uuid(&self) -> Uuid {
                 self.0

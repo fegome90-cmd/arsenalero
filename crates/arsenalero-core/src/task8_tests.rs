@@ -83,7 +83,7 @@ fn attest_computes_attained_evidence_level() {
 
     let attestation = attest_resources(
         &case,
-        &[receipt.clone()],
+        std::slice::from_ref(&receipt),
         &[crate::AttestationRequest {
             receipt_id: receipt.id().clone(),
             usage: "Used to choose the final test commands.".into(),
@@ -112,7 +112,7 @@ fn rejects_cross_case_receipts() {
     assert_eq!(
         attest_resources(
             &other_case,
-            &[receipt.clone()],
+            std::slice::from_ref(&receipt),
             &[crate::AttestationRequest::used(
                 receipt.id().clone(),
                 "Used it"
@@ -141,7 +141,7 @@ fn enforces_batch_and_usage_limits() {
     assert_eq!(
         attest_resources(
             &case,
-            &[receipt.clone()],
+            std::slice::from_ref(&receipt),
             &[crate::AttestationRequest::used(receipt.id().clone(), "   ")],
         ),
         Err(ArsenalError::AttestationEmpty)
@@ -169,10 +169,10 @@ fn rejects_duplicate_and_replayed_receipts() {
     let once = [request];
 
     assert_eq!(
-        attest_resources(&case, &[receipt.clone()], &duplicate),
+        attest_resources(&case, std::slice::from_ref(&receipt), &duplicate),
         Err(ArsenalError::ReceiptUnknown)
     );
-    assert!(attest_resources(&case, &[receipt.clone()], &once).is_ok());
+    assert!(attest_resources(&case, std::slice::from_ref(&receipt), &once).is_ok());
     assert_eq!(
         attest_resources(&case, &[receipt], &once),
         Err(ArsenalError::ReceiptUnknown)
@@ -213,7 +213,7 @@ fn detects_resource_and_skill_digest_drift_before_attestation() {
     assert_eq!(
         attest_resources(
             &case,
-            &[receipt.clone()],
+            std::slice::from_ref(&receipt),
             &[crate::AttestationRequest::used(
                 receipt.id().clone(),
                 "Used it"
@@ -229,7 +229,7 @@ fn detects_resource_and_skill_digest_drift_before_attestation() {
     assert_eq!(
         attest_resources(
             &case,
-            &[receipt.clone()],
+            std::slice::from_ref(&receipt),
             &[crate::AttestationRequest::used(
                 receipt.id().clone(),
                 "Used it"
