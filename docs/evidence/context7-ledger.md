@@ -2,8 +2,8 @@
 
 **Generated:** 2026-07-15
 **Gate:** `CONTEXT7_EVIDENCE_PROTOCOL.md`
-**Scope:** Completed Bootstrap Commit 4, Tasks 4–5 evidence, and the active Task 6 Markdown scanner dependency. Other future implementation dependencies remain deferred.
-**Status:** Bootstrap Commit 4 is complete. Tasks 4 (`bbc3cc9`) and 5 (`4b7e953`) are complete. Task 6 is the active pure core Markdown scanner and metadata-parser slice; it adds no MCP domain tools or handlers.
+**Scope:** Completed Bootstrap Commit 4, Tasks 4–7 evidence, and Task 8 case receipts and digest drift. Other future implementation dependencies remain deferred.
+**Status:** Bootstrap Commit 4 is complete. Tasks 4 (`bbc3cc9`) through 7 (`2d1236e`) are complete. Task 8 adds only core case/receipt/digest behavior; it adds no MCP domain tools or handlers.
 
 ## Evidence client provenance
 
@@ -134,6 +134,17 @@ The bootstrap prompt explicitly forbids resolving or adding these future impleme
 | `directories` | Candidate ID: `/git_codeberg_org/dirs_directories-rs` | Runtime data directories are excluded from bootstrap |
 
 The full ten-query protocol remains applicable when the corresponding implementation tasks begin. It does not authorize resolving future dependencies during this bootstrap.
+
+## 2026-07-15 — Task 8 SHA-256 and UUIDv7
+
+- `sha2` Context7 status remains **UNRESOLVED**. Multiple exact/upstream resolver queries returned unrelated libraries (including `/shadcn-ui/ui`), so that result is not authority for RustCrypto `sha2`. The historical unresolved record above is retained intentionally.
+- Replacement decision: Task 8 uses `ring = "=0.17.14"`, not `sha2`. Context7 resolved the official Ring documentation as `/websites/rs_ring` and documented the selected streaming API: `ring::digest::Context::new(&SHA256)`, repeated `Context::update`, and final `Context::finish`.
+- Cargo provenance is separate from Context7 API provenance: an elevated `cargo check --workspace` on 2026-07-15 updated the registry index and locked `ring 0.17.14`; Cargo compiled it successfully with Rust `1.97.0`.
+- UUID provenance is also split: Context7 resolved UUID documentation as `/uuid-rs/uuid`, while Cargo locked `uuid 1.24.0`. Task 8 declares `uuid = { version = "=1.24.0", default-features = false, features = ["serde", "std", "v7"] }`; the `v7` and `std` features make `Uuid::now_v7()` available and `serde` preserves the documented domain-serialization contract.
+- Tradeoff: Ring provides the necessary audited streaming SHA-256 context without adding RustCrypto after the sha2 resolver failure. The implementation owns lowercase hexadecimal rendering to keep the `sha256:` digest format stable without another dependency.
+- Stop condition rationale: this substitution is limited to core Task 8 receipts and local file digesting. It does not authorize a hash abstraction, cryptographic policy expansion, server/MCP changes, or any additional unpinned dependency. Revisit sha2 only if its official Context7 authority becomes resolvable and a later scoped task needs its API.
+- Files affected: `crates/arsenalero-core/Cargo.toml`, `Cargo.lock`, `crates/arsenalero-core/src/{case.rs,receipt.rs,domain.rs}`, and Task 8 drift fixtures/tests.
+- Verification: `cargo test -p arsenalero-core --locked` passed with 47 tests; the receipt tests cover case, skill, and resource binding; cross-case rejection; batch limits; empty usage; pre-attest resource/skill drift; UUIDv7; and lowercase streaming digests.
 
 ## Verification state
 

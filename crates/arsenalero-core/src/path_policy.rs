@@ -50,7 +50,12 @@ impl PartialEq for CanonicalResourcePath {
     }
 }
 
+impl Eq for CanonicalResourcePath {}
+
 impl CanonicalResourcePath {
+    pub(crate) fn from_retained(path: PathBuf, file: File) -> Self {
+        Self { path, file }
+    }
     /// Returns the canonical filesystem path retained by this proof object.
     pub fn as_path(&self) -> &Path {
         &self.path

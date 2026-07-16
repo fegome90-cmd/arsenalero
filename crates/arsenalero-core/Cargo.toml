@@ -9,6 +9,8 @@ workspace = true
 
 [dependencies]
 pulldown-cmark = { version = "=0.13.4", default-features = false }
+ring = "=0.17.14"
+uuid = { version = "=1.24.0", default-features = false, features = ["serde", "std", "v7"] }
 
 [dev-dependencies]
 proptest = "=1.10.0"

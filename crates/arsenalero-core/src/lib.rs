@@ -3,13 +3,16 @@
 #![doc = "\n"]
 #![doc = "Minimal domain contracts for the Arsenalero bootstrap workspace."]
 
+pub mod case;
 pub mod classify;
 pub mod domain;
 pub mod error;
 pub mod inventory;
 pub mod markdown;
 pub mod path_policy;
+pub mod receipt;
 
+pub use case::ArsenalCase;
 pub use classify::{ClassificationInput, ClassifiedResource, classify_resource, required_set};
 pub use domain::{
     AttainedEvidenceLevel, CaseId, ClassificationSource, EvidenceContract, Obligation, ReceiptId,
@@ -21,8 +24,14 @@ pub use markdown::{
     Heading, ListItem, ReferenceKind, ResourceReference, SkillDocument, Warning, scan_skill,
 };
 pub use path_policy::{CanonicalResourcePath, CanonicalSkillRoot, PathPolicy};
+pub use receipt::{
+    Attestation, AttestationRequest, EvidenceReference, ResourceIssueRequest, ResourceReceipt,
+    attest_resources, issue_resources,
+};
 
 #[cfg(test)]
 mod classification_tests;
 #[cfg(test)]
 mod task6_tests;
+#[cfg(test)]
+mod task8_tests;

@@ -55,8 +55,8 @@
       "copied_verbatim": true
     }
   ],
-  "bootstrap_scope": "Completed Bootstrap Commit 4 and Tasks 4\u20135 history plus active Task 6 pure Markdown scanner and metadata parser",
-  "bootstrap_status": "Bootstrap Commit 4 is complete, including runtime MCP integration, evals, CI, deny.toml, and the final bootstrap report in 479700012a7b20dbcfead01b1af0ec25ffa06308. Task 4 bbc3cc9 and Task 5 4b7e953 are complete. Task 6 is the active pure core Markdown scanner and metadata-parser slice; it adds only pulldown-cmark =0.13.4 with default-features=false and no MCP domain tools or handlers.",
+  "bootstrap_scope": "Completed Bootstrap Commit 4 and Tasks 4–7 history plus Task 8 core cases, receipts, and digest-drift detection",
+  "bootstrap_status": "Bootstrap Commit 4 is complete, including runtime MCP integration, evals, CI, deny.toml, and the final bootstrap report in 479700012a7b20dbcfead01b1af0ec25ffa06308. Tasks 4 through 7 are complete. Task 8 adds only core case/receipt/digest behavior with exact ring and uuid dependencies; it does not modify server/MCP handlers or add domain tools.",
   "context7_client_provenance": {
     "path": "/tmp/context7_client.js",
     "sha256": "843ac91b80beda4ecb683b43a40823816717aaba9edb271a393bcfe57ccdc630"
@@ -97,12 +97,22 @@
         "dependency": "pulldown-cmark",
         "id": "/pulldown-cmark/pulldown-cmark",
         "status": "Resolved for Task 6 API behavior. Cargo registry search/info separately verified direct requirement =0.13.4 and rust-version 1.71.1; Context7 did not supply the release version."
+      },
+      {
+        "dependency": "ring",
+        "id": "/websites/rs_ring",
+        "status": "Resolved for Task 8 streaming SHA-256 API. Context7 supplied Context::new/update/finish behavior; Cargo registry resolution separately locked exact direct requirement =0.17.14. This is the explicit replacement for unresolved sha2."
+      },
+      {
+        "dependency": "uuid",
+        "id": "/uuid-rs/uuid",
+        "status": "Resolved for Task 8 UUIDv7 IDs. Context7 supplied API authority; Cargo registry resolution separately locked exact direct requirement =1.24.0 with default-features=false and serde,std,v7 features."
       }
     ],
     "unresolved": [
       {
         "dependency": "sha2",
-        "status": "UNRESOLVED: the resolver returned unrelated /shadcn-ui/ui; that result is not sha2 authority."
+        "status": "UNRESOLVED: repeated resolver queries returned unrelated /shadcn-ui/ui; that result is not sha2 authority. Task 8 uses ring =0.17.14 as the explicitly bounded replacement."
       }
     ]
   },
@@ -113,7 +123,7 @@
     },
     {
       "dependency": "uuid",
-      "reason": "UUIDv7 domain identifiers are excluded from bootstrap."
+      "reason": "Historical bootstrap deferral. Task 8 resolved this dependency with Context7 UUID API authority and separate Cargo registry provenance; its exact direct requirement is =1.24.0."
     },
     {
       "dependency": "directories",
@@ -121,6 +131,30 @@
     }
   ],
   "manifest_version": "1.0.0",
+  "task8_dependency_evidence": {
+    "sha2": {
+      "status": "UNRESOLVED",
+      "reason": "Context7 did not resolve an official RustCrypto sha2 authority after multiple exact/upstream queries."
+    },
+    "ring": {
+      "context7_id": "/websites/rs_ring",
+      "cargo_requirement": "=0.17.14",
+      "cargo_lock_selection": "0.17.14",
+      "tradeoff": "Ring provides documented streaming Context digesting without extending scope to a hash abstraction or additional dependency.",
+      "stop_condition": "Only Task 8 core receipt digesting is authorized; no server/MCP, cryptographic policy, or unpinned dependency change."
+    },
+    "uuid": {
+      "context7_id": "/uuid-rs/uuid",
+      "cargo_requirement": "=1.24.0",
+      "cargo_lock_selection": "1.24.0",
+      "features": [
+        "serde",
+        "std",
+        "v7"
+      ],
+      "api": "Uuid::now_v7()"
+    }
+  },
   "sha_convention": {
     "pre_finalization_commit_sha": "a8cede82aca0dc41740b924ce13d4d565b5a0171",
     "active_task_pre_finalization_commit_sha": "4b7e953bb4891a1ac640360413b63efcf6dc42f2",
@@ -145,14 +179,14 @@
   "updated_evidence": [
     {
       "copied_verbatim": false,
-      "current_bytes": 13241,
-      "current_sha256": "fa5f2640e06bff7c01ce85629651125811cc3405d04c5ce10515b8bbbe2395b2",
+      "current_bytes": 15426,
+      "current_sha256": "89f4eb45b21b711977e856b9d4198387d0eebe839ed13d4ffe43d0431dff3b20",
       "destination_path": "docs/evidence/context7-ledger.md",
-      "modified_by": "Task 6 Markdown scanner and metadata parser",
+      "modified_by": "Tasks 6-8 dependency evidence; Task 8 records the explicit ring substitution and UUID provenance while preserving historical evidence",
       "original_bytes": 8792,
       "original_sha256": "957d4d4a22372b629a2125e10bcd5326f78cf75743ad0ef083145c88dedcac7c",
       "original_source_path": "/Users/felipe_gonzalez/Developer/arsenalero-worktree/docs/evidence/context7-ledger.md",
-      "reason": "Records bootstrap and Task 4\u20136 dependency evidence while preserving the original source copy as immutable evidence."
+      "reason": "Records bootstrap and Task 4-8 dependency evidence while preserving the original source copy as immutable evidence."
     }
   ],
   "zero_domain_tools": true,

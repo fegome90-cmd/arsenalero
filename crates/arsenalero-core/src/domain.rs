@@ -1,8 +1,8 @@
-/// Opaque case identifier.
-///
-/// Validation and identifier generation are deferred to a later task.
+use uuid::Uuid;
+
+/// UUIDv7 identifier for an Arsenalero case.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct CaseId(String);
+pub struct CaseId(Uuid);
 
 /// Opaque resource identifier.
 ///
@@ -10,13 +10,11 @@ pub struct CaseId(String);
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ResourceId(String);
 
-/// Opaque receipt identifier.
-///
-/// Validation and identifier generation are deferred to a later task.
+/// UUIDv7 identifier for an issued receipt.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct ReceiptId(String);
+pub struct ReceiptId(Uuid);
 
-macro_rules! opaque_id {
+macro_rules! opaque_string_id {
     ($id:ident) => {
         impl $id {
             /// Wraps an identifier without imposing validation or generation rules.
@@ -32,9 +30,31 @@ macro_rules! opaque_id {
     };
 }
 
-opaque_id!(CaseId);
-opaque_id!(ResourceId);
-opaque_id!(ReceiptId);
+opaque_string_id!(ResourceId);
+
+macro_rules! uuid_v7_id {
+    ($id:ident) => {
+        impl $id {
+            /// Creates a UUIDv7 identifier using the system clock.
+            pub fn now_v7() -> Self {
+                Self(Uuid::now_v7())
+            }
+
+            /// Wraps an already validated UUID without changing equality, ordering, or hashing.
+            pub(crate) const fn new(value: Uuid) -> Self {
+                Self(value)
+            }
+
+            /// Returns the underlying UUID value.
+            pub const fn as_uuid(&self) -> Uuid {
+                self.0
+            }
+        }
+    };
+}
+
+uuid_v7_id!(CaseId);
+uuid_v7_id!(ReceiptId);
 
 /// How a resource classification was obtained.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -130,7 +150,7 @@ pub enum ReconciliationStatus {
 mod tests {
     use super::{
         AttainedEvidenceLevel, CaseId, ClassificationSource, EvidenceContract, Obligation,
-        ResourceId, ResourceState,
+        ReceiptId, ResourceId, ResourceState,
     };
 
     #[test]
@@ -159,8 +179,11 @@ mod tests {
     }
 
     #[test]
-    fn ids_remain_opaque_string_wrappers() {
-        assert_eq!(CaseId::new("case-1").as_str(), "case-1");
+    fn ids_preserve_uuid_value_semantics() {
+        let case = CaseId::now_v7();
+        let receipt = ReceiptId::now_v7();
+        assert_eq!(case.as_uuid().get_version_num(), 7);
+        assert_eq!(receipt.as_uuid().get_version_num(), 7);
         assert_eq!(
             ResourceId::new("resources::check").as_str(),
             "resources::check"
