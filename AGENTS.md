@@ -33,7 +33,7 @@ When sources conflict, apply this order:
 7. `docs/audit/ARSENALERO_MCP_AUDIT_AI_ENGINEERING_v1.3.md`
 8. The approved `INPUT_REPORT_v1.1.md` authority input, owned by the later authority-archive slice
 9. Current official library documentation, only for API/version details and never for domain scope.
-10. `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` — binding-operative for slice S1 only; narrows code/test scope, reconciles stale documentation scope.
+10. `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` — historical authority record for the closed slice S1; NO LONGER binding-operative. Items 1-9 resume full authority. New slices must follow the Addendum authorization rule recorded in the archived document (section 5b): an agent may draft but must not approve or activate.
 
 The Constitution, SDD, plan, audits, Context7 protocol, and input report are copied authority inputs. Preserve their provenance and do not rewrite authority copies. The owned Context7 ledger and bootstrap manifest may receive only truthful S1 evidence updates; `bootstrap-manifest.json` is a byte-identical historical snapshot and S1 does not supersede it.
 

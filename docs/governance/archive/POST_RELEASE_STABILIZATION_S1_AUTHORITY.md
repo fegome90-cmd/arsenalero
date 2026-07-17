@@ -1,12 +1,28 @@
 # Authority Addendum — Post-Release Stabilization Slice S1
 
-> Status: **PROPOSED** (not yet operative). This document becomes operative only when committed as part of `chore/bootstrap-arsenalero-mcp-v1` and listed as item 10 in the authority hierarchy of `AGENTS.md` and `CONTRIBUTING.md`.
+> Status: **APPROVED**
+> Lifecycle: **CLOSED** (as of commit 4, the S1 close commit)
+> Archived: this document lives under `docs/governance/archive/`. It is no longer binding-operative; it is retained as the historical authority record for slice S1. Items 1-9 of the AGENTS.md authority hierarchy resume full authority.
 
 ## 1. Purpose and slice identity
 
 This addendum authorizes a single, narrow post-release stabilization slice, **S1: report package version from Cargo metadata**, for the Arsenalero MCP repository. S1 supersedes no prior authority; it narrows code/test scope and reconciles stale documentation scope (see section 2). It is NOT a generic stabilization phase and does NOT reopen any prior task, authority copy, or committed history.
 
 S1 closes the "Known gap — no `--version` flag" documented in `README.md` by implementing `--version` and `-V` flags on the `arsenalero-mcp` binary that print `arsenalero {CARGO_PKG_VERSION}` and exit 0, plus a workspace-level integration test and the documentation updates required to keep the repository truthful.
+
+## 1a. Lifecycle reconciliation
+
+The original PROPOSED banner was an incorrect documentary classification. The human user approved S1 in the orchestrating session before C1 was executed; that approval was recorded in the orchestrator's conversation context but was NOT persisted as an independent approval artifact (signed file, ticket, empty commit) in the repository before C1.
+
+This is a process deviation: the addendum should have been marked APPROVED/ACTIVE in C1 itself, with the approval recorded as a durable artifact, not left as PROPOSED. C2 and C3 were executed under the operative intent of S1 (the user-approved slice), but the documentary record lagged behind the operational reality.
+
+This reconciliation:
+- records the prior approval and its ephemeral location (orchestrator chat context);
+- corrects the lifecycle representation to APPROVED/CLOSED as of the S1 close commit, without retroactively creating evidence that did not exist;
+- does not change the scope, permissions, acceptance criteria, or outcomes under which C1, C2, C3 were made;
+- establishes (in the "Addendum authorization rule" section below) that future slices MUST persist approval as a durable artifact, not as ephemeral chat approval, to prevent this deviation from recurring.
+
+Future slices must not cite this reconciliation as precedent for skipping durable approval recording. The deviation is acknowledged, not normalized.
 
 ## 2. Authority hierarchy insertion
 
@@ -70,3 +86,71 @@ Self-retiring addenda (items that enter the authority hierarchy and are later ar
 For slices that DO introduce new capabilities, multi-file features, or enduring authority decisions, use a PERMANENT authority entry that lives indefinitely in the hierarchy, not a self-retiring addendum.
 
 This principle prevents `docs/governance/archive/` from accumulating unboundedly many self-retiring addenda that obscure the active authority surface. S1 meets all four criteria (3 commits, ~8 files, no new capability, self-contained); future slices must verify the same.
+
+## 5b. Addendum authorization rule
+
+A governance or stabilization addendum has no operative authority merely because it has been drafted, added to the repository, referenced by an agent, or included in the authority hierarchy.
+
+An addendum becomes operative only after explicit human approval is recorded either:
+
+1. in the addendum itself; OR
+2. in an accompanying approval artifact that unambiguously identifies the approved addendum revision.
+
+An agent may research, draft, review, or recommend an addendum, but may not approve, activate, or represent it as operative authority.
+
+Before approval, agents must treat the addendum as PROPOSED and must not perform mutations whose authorization depends on it.
+
+An addendum may narrow or extend an implementation slice within the authority delegated to it, but it may not:
+
+- override the Constitution;
+- modify or supersede copied authority documents;
+- retroactively authorize previously unauthorized mutations;
+- weaken repository safety restrictions without explicit higher-level authority;
+- approve its own creation or activation.
+
+### Lifecycle states
+
+Lifecycle states are:
+
+- **PROPOSED**: drafted but not operative;
+- **APPROVED / ACTIVE**: human-approved and currently operative;
+- **APPROVED / CLOSED**: completed or retired and no longer authorizes new mutations.
+
+Closing an addendum does not erase or invalidate work truthfully performed while it was active.
+
+## 5c. V7 coverage clarification
+
+The no-flags version-flag test (`no_flags_keeps_the_stdio_server_alive` in `tests/integration/version_flag.rs`) is a bounded smoke test. It verifies only that an invocation without `--version` or `-V` does not take the version early-exit branch and that the child remains alive until deliberately reaped.
+
+It does not independently prove MCP request serving, MCP loop entry, or preservation of the complete stdio protocol behavior. MCP `initialize` and `tools/list` behavior remain covered by the existing `tests/integration/mcp_bootstrap_stdio.rs` integration test. The two tests provide complementary, non-duplicative coverage.
+
+### Corrected acceptance criterion wording
+
+The original acceptance criterion 5 said: "V7: the no-flags test asserts `try_wait() == Ok(None)` after the 3s sleep (process still alive = MCP loop entered)". The phrase "MCP loop entered" over-claims. The correct wording is:
+
+> V7: the no-flags test asserts `try_wait() == Ok(None)` after the 3s sleep, proving that a no-flags invocation does not take the version early-exit path.
+
+The implementation already matches this corrected wording (see the M4 coverage note in `tests/integration/version_flag.rs`); only the acceptance criterion text in this addendum is corrected.
+
+## 5d. Implementation narrative reconciliation
+
+Three narrative imprecisions in the S1 proposal record are acknowledged here, without rewriting the prior commits:
+
+1. **C2 mutation shape**: The proposal section 7 described the change as "OLD line 10: `println!("arsenalero-mcp 0.1.0");` → NEW line 10". Against the actual baseline `ff4a9e1`, the version early-return branch was a four-line ADDITION (the `if std::env::args()...` block) rather than a one-line modification of a pre-existing println. The final state of `crates/arsenalero-mcp/src/main.rs` matches acceptance criterion 1 exactly; only the narrative of "replace existing line 10" was inaccurate.
+2. **Line-number references**: References to specific source line numbers (e.g., "line 10 prints...") in the proposal and in the C3 ledger entry are non-durable narrative imprecision. Source line numbers shift across edits; durable evidence should describe behavior (e.g., "the version early-return branch prints...") not line numbers. The implemented behavior and acceptance results were not affected.
+3. **`-liconv` evidence scope**: The note in the C3 ledger Result field records a validation-host workaround only (`SDKROOT` and `RUSTFLAGS` overrides for this host's Nix/GCC linker). It is NOT a repository dependency, portability requirement, or general build instruction. It is environmental evidence; the addendum section 3 "Out of scope" correctly excludes `-liconv` from S1.
+
+## 6. S1 close statement
+
+| Item | Status |
+|---|---|
+| C1 governance activation | complete (`0f81ff3`) |
+| C2 version implementation and tests | complete (`c7a907f`) |
+| C3 release evidence reconciliation | complete (`5345103`) |
+| B1 lifecycle defect | reconciled (this commit, lifecycle now APPROVED/CLOSED) |
+| B2 anti-self-authorization rule | added (section 5b) |
+| B3 V7 claim boundary | clarified (section 5c) |
+| Implementation narrative reconciliation | recorded (section 5d) |
+| Remaining authorized mutations | **none** |
+
+**After this commit, S1 authorizes no further repository mutations.** Any additional stabilization work requires a new human-approved slice. Per section 5b, that new slice's approval MUST be persisted as a durable artifact (signed file, ticket, or empty approval commit), not as ephemeral orchestrator chat context — this is the lesson from the B1 deviation.
