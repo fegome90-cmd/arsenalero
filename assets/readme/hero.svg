@@ -6,7 +6,7 @@
     <style>
       .ink { fill: #1A1A1A; }
       .muted { fill: #6B6B6B; }
-      .gold { fill: #B8860B; }
+      .gold { fill: #8B6508; }
       .serif { font-family: Georgia, "Songti SC", serif; }
       .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif; }
       .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -18,11 +18,14 @@
 
   <!-- Receipt card -->
   <g id="receipt-card">
-    <rect x="120" y="40" width="960" height="356" rx="6" fill="#FFFFFF" stroke="#D1D1CC" stroke-width="1"/>
+    <rect x="120" y="40" width="960" height="356" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
+
+    <!-- Top accent rule (gold, AA-compliant #8B6508, aligned with content) -->
+    <rect x="152" y="40" width="160" height="4" rx="6" fill="#8B6508"/>
 
     <!-- Header: name + tagline -->
     <g id="header" transform="translate(152, 0)">
-      <text class="serif ink" x="0" y="84" font-size="14" letter-spacing="2" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
+      <text class="serif gold" x="0" y="84" font-size="14" letter-spacing="2" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
       <text class="serif ink" font-size="48" y="128" font-weight="600" letter-spacing="-1">Arsenalero</text>
       <text class="sans muted" font-size="18" y="160" font-weight="400">Resource custody for skill-active agents</text>
     </g>
