@@ -18,5 +18,9 @@ uuid = { version = "=1.24.0", default-features = false, features = ["std"] }
 name = "mcp_bootstrap_stdio"
 path = "../../tests/integration/mcp_bootstrap_stdio.rs"
 
+[[test]]
+name = "version_flag"
+path = "../../tests/integration/version_flag.rs"
+
 [lints]
 workspace = true

@@ -72,8 +72,6 @@ The repo ships a `.mcp.json` that runs the server from source via `cargo`:
 
 Use it as a Codex plugin via `.codex-plugin/plugin.json` (which references `./.mcp.json`), or add the same server entry to your own MCP client configuration. The server speaks MCP over standard input/output and exits when the transport closes.
 
-**Known gap — no `--version` flag.** The binary does not implement a `--version` flag. To confirm you are running the build you expect, check the workspace version in `Cargo.toml` (`0.1.0`) or use `cargo run --package arsenalero-mcp` from the intended checkout.
-
 ## Evaluation & rigor
 
 Arsenalero is built to be research-grade, with reproducible evaluation and auditable governance.
@@ -107,7 +105,6 @@ Arsenalero is deliberately narrow. These constraints are by design, not gaps to 
 - **Local.** It runs on your machine against a skill root you explicitly authorize; the skill root is a read-only input.
 - **Observer, not enforcer.** Arsenalero reports custody state (missing calls, stale receipts, digest drift, unresolved resources). It does not block, intercept, mask tools, execute validators, or judge the primary task result.
 - **No standalone published binary.** It is not on crates.io as a standalone binary; first use requires a Rust toolchain and a build from source.
-- **No `--version` flag** on the binary (see Quickstart).
 
 ## Contributing, Security, License
 
