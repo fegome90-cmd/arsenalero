@@ -6,7 +6,7 @@
     <style>
       .ink { fill: #1A1A1A; }
       .muted { fill: #6B6B6B; }
-      .faint { fill: #999999; }
+      .faint { fill: #767676; }
       .gold { fill: #8B6508; }
       .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
       .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
