@@ -4,18 +4,21 @@ Repository-level operating rules for the Arsenalero MCP repository.
 
 ## Bootstrap and active-slice boundary
 
-Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. The active slice is **Task 6: Markdown scanner and metadata parser**.
+Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. Task 6 (Markdown scanner and metadata parser) is complete in the historical record. The current active slice is **S1: report package version from Cargo metadata** (post-release stabilization), authorized by `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (authority item 10).
 
-Task 6 establishes only pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`. It may preserve source byte ranges; extract relative resource links; cover inline resource and reference code paths; emit free-filename warnings; retain heading, list, and adjacent context; and optionally parse Arsenal frontmatter metadata.
+**Task 6 historical record:** Task 6 established pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`, preserving source byte ranges, extracting relative resource links, covering inline resource and reference code paths, emitting free-filename warnings, retaining heading/list/adjacent context, and optionally parsing Arsenal frontmatter metadata. That work is committed; nothing in S1 reopens it.
 
-Task 6 may change only:
+S1 may change only:
 
-- existing Task 6 implementation paths, including required `crates/arsenalero-core/src/lib.rs` wiring;
-- focused Task 6 tests and fixtures already present in the worktree;
-- `crates/arsenalero-core/Cargo.toml` and `Cargo.lock` only for the approved Markdown parser dependency;
-- truthful Task 6 updates to the owned Context7 ledger and bootstrap manifest.
+- `crates/arsenalero-mcp/src/main.rs` line 10 only (the `--version`/`-V` branch prints `arsenalero {CARGO_PKG_VERSION}` and returns `Ok(())`); lines 9, 11, 12, 13 are unchanged;
+- one new `[[test]]` block in `crates/arsenalero-mcp/Cargo.toml` mirroring the existing `mcp_bootstrap_stdio` convention (no dependency, feature, or version change);
+- the new file `tests/integration/version_flag.rs` with three tests per the S1 test spec;
+- `README.md` gap-text removal (the "Known gap — no `--version` flag" paragraph near line 75 and the "No `--version` flag" bullet near line 110);
+- `AGENTS.md` and `CONTRIBUTING.md` Task 6 → S1 rewrites plus the insertion of item 10 in the authority hierarchy;
+- `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (new, this slice's operative authority);
+- one appended entry in `docs/evidence/context7-ledger.md` with a Result block filled from actual test output.
 
-Do not modify Bootstrap, Task 4, or Task 5 history, copied authority documents, or another worktree. Do not add classification, digests/UUIDs, receipts, journal/reconciliation, MCP handlers or tools, filesystem access, execution, network access, or HTML/script execution. The MCP server remains a zero-domain-tool stdio boundary. Task 7 deterministic classification is the next permitted task only after Task 6 is reviewed and committed.
+Do not modify Bootstrap, Task 4, Task 5, or Task 6 history, copied authority documents, or another worktree. Do not add classification, digests/UUIDs, receipts, journal/reconciliation, MCP handlers or tools, filesystem access, execution, network access, or HTML/script execution. The MCP server remains a zero-domain-tool stdio boundary. Task 7 deterministic classification is the next permitted task only after S1 is reviewed, committed, and closed.
 
 ## Authority hierarchy
 
@@ -30,23 +33,24 @@ When sources conflict, apply this order:
 7. `docs/audit/ARSENALERO_MCP_AUDIT_AI_ENGINEERING_v1.3.md`
 8. The approved `INPUT_REPORT_v1.1.md` authority input, owned by the later authority-archive slice
 9. Current official library documentation, only for API/version details and never for domain scope.
+10. `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` — binding-operative for slice S1 only; narrows code/test scope, reconciles stale documentation scope.
 
-The Constitution, SDD, plan, audits, Context7 protocol, and input report are copied authority inputs. Preserve their provenance and do not rewrite authority copies. The owned Context7 ledger and bootstrap manifest may receive only truthful Task 6 evidence updates.
+The Constitution, SDD, plan, audits, Context7 protocol, and input report are copied authority inputs. Preserve their provenance and do not rewrite authority copies. The owned Context7 ledger and bootstrap manifest may receive only truthful S1 evidence updates; `bootstrap-manifest.json` is a byte-identical historical snapshot and S1 does not supersede it.
 
 ## Required workflow
 
 1. Work only in `<arsenalero-root>`; never work on `main` or `<arsenalero-root>`.
 2. Read applicable instructions and authority documents before mutation.
-3. Use TDD for Task 6 behavior: RED, GREEN, REFACTOR; resolve and record the approved `pulldown-cmark =0.13.4` contract in Context7 before use.
+3. Use TDD for S1 behavior: RED, GREEN, REFACTOR for the `--version`/`-V` flag and the no-flags still-alive contract. S1 adds no new dependency, so no Context7 contract resolution is required.
 4. Keep changes minimal, attributable, reversible, and limited to the declared paths.
-5. Implementers do not stage or commit. The parent orchestrator stages reviewed paths, validates the content-bound receipt, and makes the planned Task 6 commit.
+5. Implementers do not stage or commit. The parent orchestrator stages reviewed paths, validates the content-bound receipt, and makes the planned S1 commits in order C1 → C2 → C3 (orchestrator-enforced per the addendum's section 4).
 6. Stop rather than inventing an API, schema, dependency, security control, or authority decision.
 
 ## Safety restrictions
 
 Fail closed. Do not add or enable network access, HTTP listeners, remote MCP, shell or arbitrary process execution, hooks, databases, secrets, writes inside skill roots, internal LLMs, embeddings, RAG, AST/LSP/graph machinery, UI, dynamic tools, or semantic verification claims.
 
-Task 6 may scan supplied source strings only. It must not access the filesystem, classify skills, create digests/UUIDs or receipts, journal or reconcile state, expose MCP handlers or tools, execute processes, use the network, or execute HTML or scripts.
+Historical Task 6 scanned supplied source strings only. S1 inherits the same fail-closed restrictions: it changes only the `--version`/`-V` branch of `main.rs`, adds the test file, and updates documentation. S1 adds no MCP handler, tool, filesystem access, network, execution, or new dependency.
 
 ## Exact bootstrap commit plan
 
@@ -57,7 +61,7 @@ The complete bootstrap is exactly these four Conventional Commits, with no squas
 3. `chore: scaffold Rust MCP plugin workspace`
 4. `test: verify bootstrap MCP and eval contracts`
 
-Those commits and Task 4 commit `bbc3cc9` and Task 5 commit `4b7e953` are historical record. Do not rewrite them. The eventual implementation exposes exactly five tools: `arsenal_init`, `arsenal_stage`, `arsenal_issue`, `arsenal_attest`, and `arsenal_reconcile`; Task 6 exposes none.
+Those commits and Task 4 commit `bbc3cc9` and Task 5 commit `4b7e953` are historical record. Do not rewrite them. The eventual implementation exposes exactly five tools: `arsenal_init`, `arsenal_stage`, `arsenal_issue`, `arsenal_attest`, and `arsenal_reconcile`; Task 6 exposes none. S1 exposes no new tools either; it only adds the `--version`/`-V` flag and its test.
 
 ## Evidence convention
 
@@ -69,11 +73,11 @@ Commit messages and repository artifacts must not contain `Co-Authored-By` trail
 
 ## Stop conditions
 
-Stop and report a blocker before mutation when an authority source is missing or differs from its required verbatim copy; the target is not the declared worktree or has unexplained changes; a requested artifact is outside Task 6 paths; the slice requires a prohibited behavior; or an evidence claim cannot be made truthfully.
+Stop and report a blocker before mutation when an authority source is missing or differs from its required verbatim copy; the target is not the declared worktree or has unexplained changes; a requested artifact is outside S1 paths (or historical Task 6 paths); the slice requires a prohibited behavior; or an evidence claim cannot be made truthfully.
 
 ## Validation expectations
 
-For Task 6, run focused Markdown scanner and metadata-parser tests, `cargo fmt --all --check`, `cargo check --workspace --locked`, `git diff --check`, and a scope inspection confirming only permitted Task 6 paths changed. Implementers do not stage. The parent orchestrator stages the reviewed paths before receipt validation and the planned Task 6 commit. Do not claim MCP runtime, filesystem access, classification, digest/UUID, receipt, journal/reconciliation, or handler/tool results.
+For S1, run `cargo test --package arsenalero-mcp --test version_flag --locked`, `cargo test --workspace --locked`, `cargo fmt --all --check`, `cargo check --workspace --locked`, `git diff --check`, and a scope inspection confirming only permitted S1 paths changed. Implementers do not stage. The parent orchestrator stages and commits in order C1 → C2 → C3. Do not claim MCP runtime, filesystem access, classification, digest/UUID, receipt, journal/reconciliation, or handler/tool results beyond what S1 actually executes.
 
 ## References
 
@@ -81,3 +85,4 @@ For Task 6, run focused Markdown scanner and metadata-parser tests, `cargo fmt -
 - `docs/architecture/ARSENALERO_MCP_SDD_v1.3.md`
 - `docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md`
 - `docs/governance/CONTEXT7_EVIDENCE_PROTOCOL.md`
+- `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`
