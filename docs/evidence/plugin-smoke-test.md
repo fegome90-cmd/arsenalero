@@ -2,7 +2,7 @@
 
 ## Scope and evidence boundary
 
-- Target worktree: `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`
+- Target worktree: `<arsenalero-root>`
 - Base commit: `dea1f8486a8d281bf6c0ffd9a030e12878f93e82` (`test: verify arsenalero MCP over stdio`)
 - Evidence timestamps are UTC on 2026-07-16.
 - Repository files were not modified during verification. The temporary Codex marketplace and `CODEX_HOME` were under `/tmp`.
@@ -17,7 +17,7 @@
 **Command:**
 
 ```bash
-env CARGO_TARGET_DIR=/tmp/arsenalero-task12-cargo-target-v1 cargo install --path /Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree/crates/arsenalero-mcp --locked --root /tmp/arsenalero-task12-install-v1
+env CARGO_TARGET_DIR=/tmp/arsenalero-task12-cargo-target-v1 cargo install --path <arsenalero-root>/crates/arsenalero-mcp --locked --root /tmp/arsenalero-task12-install-v1
 ```
 
 **Result:** PASS, exit `0`.
@@ -25,10 +25,10 @@ env CARGO_TARGET_DIR=/tmp/arsenalero-task12-cargo-target-v1 cargo install --path
 **Exact result output:**
 
 ```text
-  Installing arsenalero-mcp v0.1.0 (/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree/crates/arsenalero-mcp)
+  Installing arsenalero-mcp v0.1.0 (<arsenalero-root>/crates/arsenalero-mcp)
     Updating crates.io index
     Finished `release` profile [optimized] target(s) in 0.18s
-    Replaced package `arsenalero-mcp v0.1.0 (/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree/crates/arsenalero-mcp)` with `arsenalero-mcp v0.1.0 (/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree/crates/arsenalero-mcp)` (executable `arsenalero-mcp`)
+    Replaced package `arsenalero-mcp v0.1.0 (<arsenalero-root>/crates/arsenalero-mcp)` with `arsenalero-mcp v0.1.0 (<arsenalero-root>/crates/arsenalero-mcp)` (executable `arsenalero-mcp`)
 warning: be sure to add `/tmp/arsenalero-task12-install-v1/bin` to your PATH to be able to run the installed binaries
 END 2026-07-16T16:51:07Z
 EXIT 0
@@ -43,13 +43,13 @@ The command was first run against an empty install root and completed a full loc
 **Command:**
 
 ```bash
-python3 /Users/felipe_gonzalez/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py /Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree
+python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py <arsenalero-root>
 ```
 
 **Result:** PASS, exit `0`.
 
 ```text
-Plugin validation passed: /Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree
+Plugin validation passed: <arsenalero-root>
 END 2026-07-16T16:51:18Z
 EXIT 0
 ```
@@ -166,7 +166,7 @@ The expected output was `arsenalero-mcp 0.1.0`. The installed binary exposes the
 **Command:**
 
 ```bash
-CODEX_HOME=/tmp/arsenalero-task12-codex-home-v3 codex exec --ephemeral --json --skip-git-repo-check -C /Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree 'Read-only smoke test. Do not spawn sub-agents and do not modify files. Report the MCP tools available to this fresh Codex session, with exact names and count. If the Arsenalero plugin cannot load, report the exact error.'
+CODEX_HOME=/tmp/arsenalero-task12-codex-home-v3 codex exec --ephemeral --json --skip-git-repo-check -C <arsenalero-root> 'Read-only smoke test. Do not spawn sub-agents and do not modify files. Report the MCP tools available to this fresh Codex session, with exact names and count. If the Arsenalero plugin cannot load, report the exact error.'
 ```
 
 **Result:** BLOCKED, exit `1`; a fresh thread was created (`thread.started`), but the turn never reached a model response or tool listing.

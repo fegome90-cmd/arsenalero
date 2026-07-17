@@ -9,7 +9,7 @@ verification.
 ## Branch / worktree
 
 `chore/bootstrap-arsenalero-mcp-v1` in
-`/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`.
+`<arsenalero-root>`.
 
 ## Authority documents
 

@@ -35,7 +35,7 @@ The Constitution, SDD, plan, audits, Context7 protocol, and input report are cop
 
 ## Required workflow
 
-1. Work only in `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree`; never work on `main` or `/Users/felipe_gonzalez/Developer/arsenalero`.
+1. Work only in `<arsenalero-root>`; never work on `main` or `<arsenalero-root>`.
 2. Read applicable instructions and authority documents before mutation.
 3. Use TDD for Task 6 behavior: RED, GREEN, REFACTOR; resolve and record the approved `pulldown-cmark =0.13.4` contract in Context7 before use.
 4. Keep changes minimal, attributable, reversible, and limited to the declared paths.

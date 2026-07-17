@@ -10,7 +10,7 @@ The four-commit bootstrap establishes a truthful, reviewable foundation before d
 
 ## Scope
 
-Commit 3 may update only the isolated worktree `/Users/felipe_gonzalez/Developer/arsenalero-bootstrap-worktree` and may contain:
+Commit 3 may update only the isolated worktree `<arsenalero-root>` and may contain:
 
 - the governed Rust workspace and its `arsenalero-core` and `arsenalero-mcp` crates;
 - zero-domain-tool stdio MCP server scaffolding;

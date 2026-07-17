@@ -11,7 +11,7 @@
 - SHA-256: `843ac91b80beda4ecb683b43a40823816717aaba9edb271a393bcfe57ccdc630`
 - Client contract: performs `initialize`, captures `Mcp-Session-Id`, sends `notifications/initialized`, then calls the requested Context7 tool.
 - Live wrapper verification: `node /tmp/context7_client.js search 'sha2 RustCrypto SHA-2 streaming digest' 'sha2'` completed and returned unrelated libraries, including `/shadcn-ui/ui`.
-- Bundled-script verification: `node /Users/felipe_gonzalez/.pi/agent/skills/context7/search.js 'sha2 RustCrypto SHA-2 streaming digest'` failed with `No valid session ID provided`; source inspection confirms the bundled script calls `tools/call` without first calling `initialize`.
+- Bundled-script verification: `node ~/.pi/agent/skills/context7/search.js 'sha2 RustCrypto SHA-2 streaming digest'` failed with `No valid session ID provided`; source inspection confirms the bundled script calls `tools/call` without first calling `initialize`.
 - Limitation: `/tmp/context7_client.js` is an external, non-repository artifact. Its hash and verification commands are recorded here, but it must be revalidated or copied into an approved evidence location before release.
 
 ## Bootstrap dependency summary

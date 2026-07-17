@@ -1,2 +1,17 @@
+# Rust build artifacts
 /target/
+
+# macOS
 .DS_Store
+
+# Local agent runtime state (not for public repo)
+.atl/
+.pi/
+.zcode/
+
+# Pre-bootstrap source documents
+arsenalero_mcp_sdd_v1_3/
+
+# Environment files
+.env
+*.env
