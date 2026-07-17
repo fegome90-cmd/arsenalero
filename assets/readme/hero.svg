@@ -7,9 +7,8 @@
       .ink { fill: #1A1A1A; }
       .muted { fill: #6B6B6B; }
       .gold { fill: #8B6508; }
-      .serif { font-family: Georgia, "Songti SC", serif; }
-      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
     </style>
   </defs>
 
@@ -25,8 +24,8 @@
 
     <!-- Header: name + tagline -->
     <g id="header" transform="translate(152, 0)">
-      <text class="serif gold" x="0" y="84" font-size="14" letter-spacing="2" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
-      <text class="serif ink" font-size="48" y="128" font-weight="600" letter-spacing="-1">Arsenalero</text>
+      <text class="mono gold" x="0" y="84" font-size="13" letter-spacing="1.5" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
+      <text class="sans ink" font-size="48" y="128" font-weight="700" letter-spacing="-1.5">Arsenalero</text>
       <text class="sans muted" font-size="18" y="160" font-weight="400">Resource custody for skill-active agents</text>
     </g>
 
