@@ -1,11 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 1200 360" role="img" aria-labelledby="pipeTitle pipeDesc">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 1200 250" role="img" aria-labelledby="pipeTitle pipeDesc">
   <title id="pipeTitle">The Arsenalero custody pipeline: init, stage, issue, attest, reconcile</title>
-  <desc id="pipeDesc">Horizontal flow of the five Arsenalero MCP tools from left to right: arsenal_init opens a case, arsenal_stage scopes resources, arsenal_issue issues receipts, arsenal_attest records evidence, and arsenal_reconcile returns a final custody summary. A faint hash-chain line across the bottom links each step as prev, self, and next.</desc>
+  <desc id="pipeDesc">Horizontal flow of the five Arsenalero MCP tools from left to right: arsenal_init opens a case, arsenal_stage scopes resources, arsenal_issue issues receipts, arsenal_attest records evidence, and arsenal_reconcile returns a final custody summary.</desc>
 
   <defs>
     <style>
       .ink { fill: #1A1A1A; }
       .muted { fill: #6B6B6B; }
+      .faint { fill: #999999; }
       .gold { fill: #8B6508; }
       .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
       .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
@@ -16,53 +17,53 @@
   </defs>
 
   <!-- Page background -->
-  <rect width="1200" height="360" fill="#FAFAF7"/>
+  <rect width="1200" height="250" fill="transparent"/>
 
   <!-- Five nodes. Node width 168, gaps 64. Total = 5*168 + 4*64 = 1096, centered: start x = (1200-1096)/2 = 52 -->
   <g id="nodes">
     <!-- Node 1: init -->
-    <g transform="translate(52, 110)">
+    <g transform="translate(52, 83)">
       <rect width="168" height="84" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
-      <rect width="168" height="3" rx="6" fill="#8B6508"/>
-      <text class="mono ink" font-size="16" x="84" y="42" text-anchor="middle" font-weight="bold">arsenal_init</text>
-      <text class="sans muted" font-size="14" x="84" y="64" text-anchor="middle">case opened</text>
+      <rect width="168" height="3" rx="1.5" fill="#8B6508"/>
+      <text class="mono ink" font-size="16" x="84" y="38" text-anchor="middle" font-weight="bold">arsenal_init</text>
+      <text class="sans muted" font-size="14" x="84" y="60" text-anchor="middle">case opened</text>
     </g>
 
     <!-- Node 2: stage -->
-    <g transform="translate(284, 110)">
+    <g transform="translate(284, 83)">
       <rect width="168" height="84" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
-      <text class="mono ink" font-size="16" x="84" y="42" text-anchor="middle" font-weight="bold">arsenal_stage</text>
-      <text class="sans muted" font-size="14" x="84" y="64" text-anchor="middle">resources scoped</text>
+      <text class="mono ink" font-size="16" x="84" y="38" text-anchor="middle" font-weight="bold">arsenal_stage</text>
+      <text class="sans muted" font-size="14" x="84" y="60" text-anchor="middle">resources scoped</text>
     </g>
 
     <!-- Node 3: issue -->
-    <g transform="translate(516, 110)">
+    <g transform="translate(516, 83)">
       <rect width="168" height="84" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
-      <text class="mono ink" font-size="16" x="84" y="42" text-anchor="middle" font-weight="bold">arsenal_issue</text>
-      <text class="sans muted" font-size="14" x="84" y="64" text-anchor="middle">receipts issued</text>
+      <text class="mono ink" font-size="16" x="84" y="38" text-anchor="middle" font-weight="bold">arsenal_issue</text>
+      <text class="sans muted" font-size="14" x="84" y="60" text-anchor="middle">receipts issued</text>
     </g>
 
     <!-- Node 4: attest -->
-    <g transform="translate(748, 110)">
+    <g transform="translate(748, 83)">
       <rect width="168" height="84" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
-      <text class="mono ink" font-size="16" x="84" y="42" text-anchor="middle" font-weight="bold">arsenal_attest</text>
-      <text class="sans muted" font-size="14" x="84" y="64" text-anchor="middle">evidence recorded</text>
+      <text class="mono ink" font-size="16" x="84" y="38" text-anchor="middle" font-weight="bold">arsenal_attest</text>
+      <text class="sans muted" font-size="14" x="84" y="60" text-anchor="middle">evidence recorded</text>
     </g>
 
     <!-- Node 5: reconcile -->
-    <g transform="translate(980, 110)">
+    <g transform="translate(980, 83)">
       <rect width="168" height="84" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
-      <rect width="168" height="3" rx="6" fill="#8B6508" transform="translate(0, 81)"/>
-      <text class="mono ink" font-size="16" x="84" y="42" text-anchor="middle" font-weight="bold">arsenal_reconcile</text>
-      <text class="sans muted" font-size="14" x="84" y="64" text-anchor="middle">summary returned</text>
+      <rect width="168" height="3" rx="1.5" fill="#8B6508" transform="translate(0, 81)"/>
+      <text class="mono ink" font-size="16" x="84" y="38" text-anchor="middle" font-weight="bold">arsenal_reconcile</text>
+      <text class="sans muted" font-size="14" x="84" y="60" text-anchor="middle">summary returned</text>
     </g>
   </g>
 
   <!-- Connectors between nodes -->
   <g id="connectors">
-    <line x1="220" y1="152" x2="284" y2="152" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="452" y1="152" x2="516" y2="152" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="684" y1="152" x2="748" y2="152" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="916" y1="152" x2="980" y2="152" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="220" y1="125" x2="284" y2="125" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="452" y1="125" x2="516" y2="125" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="684" y1="125" x2="748" y2="125" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="916" y1="125" x2="980" y2="125" stroke="#6B6B6B" stroke-width="2" marker-end="url(#arrow)"/>
   </g>
 </svg>
