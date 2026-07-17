@@ -1,6 +1,6 @@
 # Contributing
 
-Do not work on `main`. Work only in `<arsenalero-root>` and use a focused Conventional Commit for each approved task. Do not modify `<arsenalero-root>`.
+Do not work on `main` (archived) or `develop`. Work only in focused feature branches (`feature/*`, `fix/*`, `chore/*`, `eval/*`) and merge to `develop` via PR. See `docs/governance/BRANCHING_MODEL.md`.
 
 Before using an external library API, complete the Context7 evidence gate and record the selected version and contract in `docs/evidence/context7-ledger.md`. Keep changes within the approved task scope, use TDD for executable behavior, and obtain a fresh review after the change.
 

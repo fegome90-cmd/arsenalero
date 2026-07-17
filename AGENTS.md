@@ -4,7 +4,7 @@ Repository-level operating rules for the Arsenalero MCP repository.
 
 ## Bootstrap and active-slice boundary
 
-Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. Task 6 (Markdown scanner and metadata parser) is complete in the historical record. The current active slice is **S1: report package version from Cargo metadata** (post-release stabilization), authorized by `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (authority item 10).
+Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. Task 6 (Markdown scanner and metadata parser) is complete in the historical record. Slice S1 is **closed** (see `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`). There is **no active slice** as of 2026-07-17 — the repository is under gitflow with `develop` as the canonical branch. Next work requires a new human-approved slice following the Addendum authorization rule (section 5b of the archived S1 addendum). See `docs/governance/BRANCHING_MODEL.md`.
 
 **Task 6 historical record:** Task 6 established pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`, preserving source byte ranges, extracting relative resource links, covering inline resource and reference code paths, emitting free-filename warnings, retaining heading/list/adjacent context, and optionally parsing Arsenal frontmatter metadata. That work is committed; nothing in S1 reopens it.
 
@@ -86,3 +86,4 @@ For S1, run `cargo test --package arsenalero-mcp --test version_flag --locked`, 
 - `docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md`
 - `docs/governance/CONTEXT7_EVIDENCE_PROTOCOL.md`
 - `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`
+- `docs/governance/BRANCHING_MODEL.md`
