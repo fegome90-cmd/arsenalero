@@ -6,27 +6,27 @@
     <style>
       .ink { fill: #1A1A1A; }
       .muted { fill: #6B6B6B; }
-      .gold { fill: #B8860B; }
-      .serif { font-family: Georgia, "Songti SC", serif; }
-      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .faint { fill: #767676; }
+      .gold { fill: #8B6508; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
     </style>
   </defs>
 
   <!-- Page background -->
-  <rect width="1200" height="436" fill="#FAFAF7"/>
+  <rect width="1200" height="436" fill="transparent"/>
 
   <!-- Receipt card -->
   <g id="receipt-card">
     <rect x="120" y="40" width="960" height="356" rx="6" fill="#FFFFFF" stroke="#E5E5E0" stroke-width="1"/>
 
-    <!-- Top accent rule (gold, used sparingly) -->
-    <rect x="152" y="40" width="160" height="4" rx="6" fill="#B8860B"/>
+    <!-- Top accent rule (gold, AA-compliant #8B6508, aligned with content) -->
+    <rect x="152" y="40" width="160" height="4" rx="2" fill="#8B6508"/>
 
     <!-- Header: name + tagline -->
     <g id="header" transform="translate(152, 0)">
-      <text class="serif gold" x="0" y="84" font-size="14" letter-spacing="2" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
-      <text class="serif ink" font-size="48" y="128" font-weight="600" letter-spacing="-1">Arsenalero</text>
+      <text class="mono gold" x="0" y="84" font-size="13" letter-spacing="1.5" font-weight="500">RECIBO DE CUSTODIA · v0.1.0</text>
+      <text class="sans ink" font-size="48" y="128" font-weight="700" letter-spacing="-1.5">Arsenalero</text>
       <text class="sans muted" font-size="18" y="160" font-weight="400">Resource custody for skill-active agents</text>
     </g>
 
@@ -36,36 +36,36 @@
     <!-- Five tools as receipt line items -->
     <g id="line-items" transform="translate(152, 212)">
       <!-- Row 1 -->
-      <text class="mono ink" font-size="14" x="0" y="0">arsenal_init</text>
-      <text class="sans muted" font-size="14" x="200" y="0">open case + inventory the active skill</text>
-      <text class="mono muted" font-size="13" x="760" y="0" text-anchor="end">stage →</text>
+      <text class="mono ink" font-weight="bold" font-size="16" x="0" y="0">arsenal_init</text>
+      <text class="sans muted" font-size="16" x="200" y="0">open case + inventory the active skill</text>
+      <text class="mono faint" font-size="14" x="760" y="0" text-anchor="end">stage →</text>
 
       <!-- Row 2 -->
-      <text class="mono ink" font-size="14" x="0" y="28">arsenal_stage</text>
-      <text class="sans muted" font-size="14" x="200" y="28">identify resources for a workflow stage</text>
-      <text class="mono muted" font-size="13" x="760" y="28" text-anchor="end">issue →</text>
+      <text class="mono ink" font-weight="bold" font-size="16" x="0" y="28">arsenal_stage</text>
+      <text class="sans muted" font-size="16" x="200" y="28">identify resources for a workflow stage</text>
+      <text class="mono faint" font-size="14" x="760" y="28" text-anchor="end">issue →</text>
 
       <!-- Row 3 -->
-      <text class="mono ink" font-size="14" x="0" y="56">arsenal_issue</text>
-      <text class="sans muted" font-size="14" x="200" y="56">issue up to 4 resources with receipts</text>
-      <text class="mono muted" font-size="13" x="760" y="56" text-anchor="end">attest →</text>
+      <text class="mono ink" font-weight="bold" font-size="16" x="0" y="56">arsenal_issue</text>
+      <text class="sans muted" font-size="16" x="200" y="56">issue up to 4 resources with receipts</text>
+      <text class="mono faint" font-size="14" x="760" y="56" text-anchor="end">attest →</text>
 
       <!-- Row 4 -->
-      <text class="mono ink" font-size="14" x="0" y="84">arsenal_attest</text>
-      <text class="sans muted" font-size="14" x="200" y="84">record use + server-computed evidence</text>
-      <text class="mono muted" font-size="13" x="760" y="84" text-anchor="end">reconcile →</text>
+      <text class="mono ink" font-weight="bold" font-size="16" x="0" y="84">arsenal_attest</text>
+      <text class="sans muted" font-size="16" x="200" y="84">record use + server-computed evidence</text>
+      <text class="mono faint" font-size="14" x="760" y="84" text-anchor="end">reconcile →</text>
 
       <!-- Row 5 -->
-      <text class="mono ink" font-size="14" x="0" y="112">arsenal_reconcile</text>
-      <text class="sans muted" font-size="14" x="200" y="112">return idempotent final custody summary</text>
-      <text class="mono muted" font-size="13" x="760" y="112" text-anchor="end">done</text>
+      <text class="mono ink" font-weight="bold" font-size="16" x="0" y="112">arsenal_reconcile</text>
+      <text class="sans muted" font-size="16" x="200" y="112">return idempotent final custody summary</text>
+      <text class="mono faint" font-size="14" x="760" y="112" text-anchor="end">done</text>
     </g>
 
     <!-- Bottom hash-chain footer -->
     <line x1="152" y1="348" x2="1048" y2="348" stroke="#E5E5E0" stroke-width="1"/>
     <g id="hash-chain-footer" transform="translate(152, 364)">
-      <text class="mono muted" font-size="13">prev:7b2c · self:a3f1 · next:—</text>
-      <text class="sans muted" font-size="13" x="896" text-anchor="end">Rust · MCP · MIT · v0.1.0</text>
+      <text class="mono muted" font-size="14">prev:7b2c · self:a3f1 · next:—</text>
+      <text class="sans muted" font-size="14" x="896" text-anchor="end">Rust · MCP · MIT · v0.1.0</text>
     </g>
   </g>
 </svg>
