@@ -87,3 +87,4 @@ For S1, run `cargo test --package arsenalero-mcp --test version_flag --locked`, 
 - `docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md`
 - `docs/governance/CONTEXT7_EVIDENCE_PROTOCOL.md`
 - `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`
+- `docs/governance/BRANCHING_MODEL.md`
