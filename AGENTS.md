@@ -4,7 +4,7 @@ Repository-level operating rules for the Arsenalero MCP repository.
 
 ## Bootstrap and active-slice boundary
 
-Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. Task 6 (Markdown scanner and metadata parser) is complete in the historical record. The current active slice is **S1: report package version from Cargo metadata** (post-release stabilization), authorized by `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (authority item 10).
+Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1af0ec25ffa06308`). **Task 4: domain model and reason codes** is complete at `bbc3cc9a3bc4bca4090c1cfce4b451374d212646`, and **Task 5: read-only filesystem path policy** is complete at `4b7e953`. Task 6 (Markdown scanner and metadata parser) is complete in the historical record. Slice S1 is closed. The current active slice is **Branch Consolidation B1 (Recovery)** (consolidate `main` and the bootstrap MCP line from `5ae4de0` into a single canonical history, after quarantining unauthorized M2 gitflow commits), authorized by `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md` (authority item 11, APPROVED/ACTIVE).
 
 **Task 6 historical record:** Task 6 established pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`, preserving source byte ranges, extracting relative resource links, covering inline resource and reference code paths, emitting free-filename warnings, retaining heading/list/adjacent context, and optionally parsing Arsenal frontmatter metadata. That work is committed; nothing in S1 reopens it.
 
@@ -34,6 +34,7 @@ When sources conflict, apply this order:
 8. The approved `INPUT_REPORT_v1.1.md` authority input, owned by the later authority-archive slice
 9. Current official library documentation, only for API/version details and never for domain scope.
 10. `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` — historical authority record for the closed slice S1; NO LONGER binding-operative. Items 1-9 resume full authority. New slices must follow the Addendum authorization rule recorded in the archived document (section 5b): an agent may draft but must not approve or activate.
+11. `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md` — binding-operative for Branch Consolidation B1 (Recovery) only; declared APPROVED/ACTIVE on 2026-07-18 by human approval recorded inside the addendum.
 
 The Constitution, SDD, plan, audits, Context7 protocol, and input report are copied authority inputs. Preserve their provenance and do not rewrite authority copies. The owned Context7 ledger and bootstrap manifest may receive only truthful S1 evidence updates; `bootstrap-manifest.json` is a byte-identical historical snapshot and S1 does not supersede it.
 
