@@ -275,3 +275,38 @@ Additionally corrected in this commit: section 9 originally said
 "outside the 5 listed above (plus this addendum itself)" was
 internally inconsistent. Corrected to "6 listed above" — the 6 files
 were always 6 (5 target + this addendum); only the count was wrong.
+
+## 10. Amendment: PR #1 CI merge-gate remediation
+
+Status: APPROVED/ACTIVE
+Approved by: Felipe Gonzalez
+Approval date: 2026-07-19
+Approval source: exact human approval in the orchestration thread (Gate A1)
+
+Purpose: authorize the minimum behavior-neutral source-documentation
+change required to make the existing GitHub Actions Clippy gate pass.
+
+Permitted files:
+- `tests/integration/version_flag.rs`
+- `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
+
+Permitted changes:
+- correct only the rustdoc indentation that triggers
+  `clippy::doc_overindented_list_items`;
+- materialize this human-approved amendment.
+
+Forbidden:
+- changing executable behavior or test assertions;
+- adding lint allowances;
+- weakening or disabling `-D warnings`;
+- modifying `.github/workflows/ci.yml`;
+- changing any other source, test, governance, or evidence file;
+- rewriting existing commits or force-pushing.
+
+Validation:
+- `cargo fmt --all --check`
+- `cargo check --workspace --locked`
+- `cargo clippy --workspace --all-targets --all-features --locked -- -D warnings`
+- `cargo test --workspace --all-features --locked`
+- `cargo deny check`
+- `git diff --check`
