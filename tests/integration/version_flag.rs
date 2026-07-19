@@ -15,7 +15,7 @@
 //! 2. VERSION-STRING NAME: `arsenalero` (NO `-mcp` suffix).
 //!    The binary's `--version` output must print `arsenalero <version>`
 //!    to match the MCP `serverInfo.name` declared in `server.rs`:
-//!        Implementation::new("arsenalero", env!("CARGO_PKG_VERSION"))
+//!    `Implementation::new("arsenalero", env!("CARGO_PKG_VERSION"))`
 //!
 //! So: spawn WITH `-mcp`  -> `env!("CARGO_BIN_EXE_arsenalero-mcp")`
 //!     assert the line    -> `concat!("arsenalero ", env!("CARGO_PKG_VERSION"), "\n")`
