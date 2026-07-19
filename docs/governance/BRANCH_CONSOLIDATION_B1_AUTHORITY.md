@@ -251,13 +251,16 @@ text) but the actual remediation required three commits:
    (same Hallazgo 6 pattern: sub-agent updated the active-slice
    pointer but left operative blocks stale; detected in human review
    of `30fe4cc`, not in the initial sub-agent pass).
-3. `b8901b4330addc69e9b5bb20fd624ca7e4a24954` — this
-   reconciliation commit: corrects the file-count description (was
-   "5 files", actually 6 including this addendum), acknowledges the
-   cardinality deviation from "single corrective commit", and fixes
-   residual wording issues in AGENTS.md (autocontradictory line 39)
-   and CONTRIBUTING.md (stale heading line 7) detected in second
-   human review.
+3. this reconciliation commit: corrects the file-count description
+   (was "5 files", actually 6 including this addendum), acknowledges
+   the cardinality deviation from "single corrective commit", and
+   fixes residual wording issues in AGENTS.md (autocontradictory
+   line 39) and CONTRIBUTING.md (stale heading line 7) detected in
+   second human review. (The exact SHA is available via git log;
+   the prior commit's pre-amend SHA was previously inlined here but
+   removed because it is not durable: a commit cannot contain its
+   own SHA, and the pre-amend SHA was not the actual final SHA of
+   the prior commit.)
 
 Cardinality deviation acknowledged, not normalized. Future enmiendas
 must declare exact commit count upfront, or accept that additional
