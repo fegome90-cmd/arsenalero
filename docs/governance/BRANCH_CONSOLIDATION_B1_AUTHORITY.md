@@ -310,3 +310,38 @@ Validation:
 - `cargo test --workspace --all-features --locked`
 - `cargo deny check`
 - `git diff --check`
+
+## 11. Amendment: PR #1 CI toolchain remediation
+
+Status: APPROVED/ACTIVE
+Approved by: Felipe Gonzalez
+Approval date: 2026-07-19
+Approval source: exact human approval in the orchestration thread (Gate A1)
+
+Purpose: authorize the minimum change to make the existing GitHub Actions
+Clippy step pass — currently it fails because `cargo-clippy` is not
+installed in the toolchain defined by `rust-toolchain.toml`.
+
+Permitted files:
+- `rust-toolchain.toml`
+- `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
+
+Permitted changes:
+- add `"clippy"` to the `components` array in `rust-toolchain.toml`;
+- materialize this human-approved amendment.
+
+Forbidden:
+- changing the toolchain `channel` (must remain `1.97.0`);
+- changing the `profile` (must remain `minimal`);
+- removing `rustfmt` from `components`;
+- modifying `.github/workflows/ci.yml`;
+- changing any other source, test, governance, or evidence file;
+- rewriting existing commits or force-pushing.
+
+Validation:
+- `cargo fmt --all --check`
+- `cargo check --workspace --locked`
+- `cargo clippy --workspace --all-targets --all-features --locked -- -D warnings`
+- `cargo test --workspace --all-features --locked`
+- `cargo deny check`
+- `git diff --check`
