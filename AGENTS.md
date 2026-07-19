@@ -36,7 +36,7 @@ The Constitution, SDD, plan, audits, Context7 protocol, and input report are cop
 
 ## Required workflow
 
-1. Work only in `<arsenalero-root>`; never work on `main` or `<arsenalero-root>`.
+1. Work only in the isolated worktree declared by the active slice. Never work directly on `main` or in another worktree.
 2. Read applicable instructions and authority documents before mutation.
 3. Use TDD for any executable behavior introduced by future slices.
    Currently B1 Recovery is the active slice; it introduces no new

@@ -212,7 +212,7 @@ REQUEST_CHANGES) identified 6 documentary findings:
 
 This enmienda authorizes a single corrective commit on the existing
 recovery branch `chore/branch-consolidation-b1-recovery` to remediate
-all 6 findings. The commit touches exactly these 5 files:
+all 6 findings. The commit touches exactly these 6 files (5 target files plus this addendum itself):
 
 - `README.md` (remove mutable counter, replace with "CI verified")
 - `AGENTS.md` (fix 2 broken paths + replace 6 stale S1 operative blocks with B1 references)
@@ -222,13 +222,13 @@ all 6 findings. The commit touches exactly these 5 files:
 - This document (`docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`) — adds this enmienda section itself
 
 (The enmienda adds this section to itself; the corrective changes to
-the other 5 files happen in the same commit.)
+the other 5 target files happen in the same commit; this addendum is the 6th file.)
 
 ### Additional stop conditions for this enmienda
 
 - The corrective commit MUST NOT introduce new code or test changes.
-- The corrective commit MUST NOT touch any file outside the 5 listed above
-  (plus this addendum itself).
+- The corrective commit MUST NOT touch any file outside the 6 listed above
+  (5 target files plus this addendum itself).
 - The corrective commit MUST NOT alter the merge commit or any prior
   commit on the recovery branch (it is an additive commit on top).
 - Push MUST be a fast-forward (no force-push needed; the branch just
@@ -239,3 +239,36 @@ the other 5 files happen in the same commit.)
 The corrective commit is prepared (Encargo A), validated, and reported
 with exact SHA. The human reviews the exact SHA and diff. Only after
 explicit human approval does Encargo B push to the existing branch.
+
+### Cardinality reconciliation (2026-07-19)
+
+The enmienda authorized "a single corrective commit" (section 9 main
+text) but the actual remediation required three commits:
+
+1. `30fe4cc` — initial remediation of all 6 review findings across
+   5 target files plus this addendum.
+2. `ee118e5` — residual fix for CONTRIBUTING.md lines 11 and 23
+   (same Hallazgo 6 pattern: sub-agent updated the active-slice
+   pointer but left operative blocks stale; detected in human review
+   of `30fe4cc`, not in the initial sub-agent pass).
+3. `b8901b4330addc69e9b5bb20fd624ca7e4a24954` — this
+   reconciliation commit: corrects the file-count description (was
+   "5 files", actually 6 including this addendum), acknowledges the
+   cardinality deviation from "single corrective commit", and fixes
+   residual wording issues in AGENTS.md (autocontradictory line 39)
+   and CONTRIBUTING.md (stale heading line 7) detected in second
+   human review.
+
+Cardinality deviation acknowledged, not normalized. Future enmiendas
+must declare exact commit count upfront, or accept that additional
+commits require explicit reconciliation like this one. The single-commit
+assumption was wrong: review remediation in a slice that touches
+interdependent governance documents predictably produces additional
+commits as each review surfaces related defects.
+
+Additionally corrected in this commit: section 9 originally said
+"touches exactly these 5 files" while the same sentence enumerated
+6 files (5 target files plus this addendum). The stop condition
+"outside the 5 listed above (plus this addendum itself)" was
+internally inconsistent. Corrected to "6 listed above" — the 6 files
+were always 6 (5 target + this addendum); only the count was wrong.

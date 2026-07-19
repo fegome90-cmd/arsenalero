@@ -4,7 +4,7 @@ Do not work on `main`. Work only in focused feature branches (`feature/*`, `fix/
 
 Before using an external library API, complete the Context7 evidence gate and record the selected version and contract in `docs/evidence/context7-ledger.md`. Keep changes within the approved task scope, use TDD for executable behavior, and obtain a fresh review after the change.
 
-## S1 validation and commit
+## Validation and commit workflow
 
 Task 4 is complete at `bbc3cc9`, Task 5 at `4b7e953`, and Task 6 (Markdown scanner and metadata parser) is historical record. S1 is closed (see docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md). The current active slice is Branch Consolidation B1 (Recovery), authorized by docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md (authority item 11). See that addendum for permitted paths, validations, and stop conditions.
 
