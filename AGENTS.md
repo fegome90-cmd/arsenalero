@@ -8,15 +8,11 @@ Bootstrap is complete through **Bootstrap Commit 4** (`479700012a7b20dbcfead01b1
 
 **Task 6 historical record:** Task 6 established pure source-string, event-based Markdown scanning with `pulldown-cmark =0.13.4` and `default-features=false`, preserving source byte ranges, extracting relative resource links, covering inline resource and reference code paths, emitting free-filename warnings, retaining heading/list/adjacent context, and optionally parsing Arsenal frontmatter metadata. That work is committed; nothing in S1 reopens it.
 
-S1 may change only:
-
-- `crates/arsenalero-mcp/src/main.rs` line 10 only (the `--version`/`-V` branch prints `arsenalero {CARGO_PKG_VERSION}` and returns `Ok(())`); lines 9, 11, 12, 13 are unchanged;
-- one new `[[test]]` block in `crates/arsenalero-mcp/Cargo.toml` mirroring the existing `mcp_bootstrap_stdio` convention (no dependency, feature, or version change);
-- the new file `tests/integration/version_flag.rs` with three tests per the S1 test spec;
-- `README.md` gap-text removal (the "Known gap — no `--version` flag" paragraph near line 75 and the "No `--version` flag" bullet near line 110);
-- `AGENTS.md` and `CONTRIBUTING.md` Task 6 → S1 rewrites plus the insertion of item 10 in the authority hierarchy;
-- `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (new, this slice's operative authority);
-- one appended entry in `docs/evidence/context7-ledger.md` with a Result block filled from actual test output.
+S1 is closed (see docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md).
+The current active slice is Branch Consolidation B1 (Recovery). Permitted
+paths, scope, and operations are defined in
+docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md section 3. Do not
+perform mutations outside that scope.
 
 Do not modify Bootstrap, Task 4, Task 5, or Task 6 history, copied authority documents, or another worktree. Do not add classification, digests/UUIDs, receipts, journal/reconciliation, MCP handlers or tools, filesystem access, execution, network access, or HTML/script execution. The MCP server remains a zero-domain-tool stdio boundary. Task 7 deterministic classification is the next permitted task only after S1 is reviewed, committed, and closed.
 
@@ -42,16 +38,26 @@ The Constitution, SDD, plan, audits, Context7 protocol, and input report are cop
 
 1. Work only in `<arsenalero-root>`; never work on `main` or `<arsenalero-root>`.
 2. Read applicable instructions and authority documents before mutation.
-3. Use TDD for S1 behavior: RED, GREEN, REFACTOR for the `--version`/`-V` flag and the no-flags still-alive contract. S1 adds no new dependency, so no Context7 contract resolution is required.
+3. Use TDD for any executable behavior introduced by future slices.
+   Currently B1 Recovery is the active slice; it introduces no new
+   executable behavior (only governance docs and a merge). No TDD applies.
 4. Keep changes minimal, attributable, reversible, and limited to the declared paths.
-5. Implementers do not stage or commit. The parent orchestrator stages reviewed paths, validates the content-bound receipt, and makes the planned S1 commits in order C1 → C2 → C3 (orchestrator-enforced per the addendum's section 4).
+5. Implementers do not stage or commit. The parent orchestrator stages
+   reviewed paths, validates the content-bound receipt, and executes the
+   active slice's commit plan under the three-gate workflow (see
+   docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md and
+   docs/governance/BRANCHING_MODEL.md).
 6. Stop rather than inventing an API, schema, dependency, security control, or authority decision.
 
 ## Safety restrictions
 
 Fail closed. Do not add or enable network access, HTTP listeners, remote MCP, shell or arbitrary process execution, hooks, databases, secrets, writes inside skill roots, internal LLMs, embeddings, RAG, AST/LSP/graph machinery, UI, dynamic tools, or semantic verification claims.
 
-Historical Task 6 scanned supplied source strings only. S1 inherits the same fail-closed restrictions: it changes only the `--version`/`-V` branch of `main.rs`, adds the test file, and updates documentation. S1 adds no MCP handler, tool, filesystem access, network, execution, or new dependency.
+Historical Task 6 scanned supplied source strings only; historical S1
+changed only the --version/-V branch of main.rs and added the test file.
+B1 Recovery is a governance-only slice: no code mutation, no MCP handler,
+no tool, no filesystem access, no network, no execution, no new
+dependency. Future slices inherit the fail-closed restrictions.
 
 ## Exact bootstrap commit plan
 
@@ -74,11 +80,22 @@ Commit messages and repository artifacts must not contain `Co-Authored-By` trail
 
 ## Stop conditions
 
-Stop and report a blocker before mutation when an authority source is missing or differs from its required verbatim copy; the target is not the declared worktree or has unexplained changes; a requested artifact is outside S1 paths (or historical Task 6 paths); the slice requires a prohibited behavior; or an evidence claim cannot be made truthfully.
+Stop and report a blocker before mutation when an authority source is
+missing or differs from its required verbatim copy; the target is not
+the declared worktree or has unexplained changes; a requested artifact
+is outside the active slice's permitted paths (B1 Recovery: see
+docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md section 3); the
+slice requires a prohibited behavior; or an evidence claim cannot be
+made truthfully.
 
 ## Validation expectations
 
-For S1, run `cargo test --package arsenalero-mcp --test version_flag --locked`, `cargo test --workspace --locked`, `cargo fmt --all --check`, `cargo check --workspace --locked`, `git diff --check`, and a scope inspection confirming only permitted S1 paths changed. Implementers do not stage. The parent orchestrator stages and commits in order C1 → C2 → C3. Do not claim MCP runtime, filesystem access, classification, digest/UUID, receipt, journal/reconciliation, or handler/tool results beyond what S1 actually executes.
+For B1 Recovery, run `cargo fmt --all --check`, `cargo check --workspace
+--locked`, `cargo test --workspace --locked`, `git diff --check`, and a
+scope inspection confirming only permitted B1 paths changed. Implementers
+do not stage. The parent orchestrator executes under the three-gate
+workflow. Future slices will define their own validation requirements
+in their respective addenda.
 
 ## References
 
@@ -86,5 +103,5 @@ For S1, run `cargo test --package arsenalero-mcp --test version_flag --locked`, 
 - `docs/architecture/ARSENALERO_MCP_SDD_v1.3.md`
 - `docs/plans/ARSENALERO_MCP_IMPLEMENTATION_PLAN_v1.3.md`
 - `docs/governance/CONTEXT7_EVIDENCE_PROTOCOL.md`
-- `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`
+- `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`
 - `docs/governance/BRANCHING_MODEL.md`

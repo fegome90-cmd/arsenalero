@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">
-  Rust &nbsp;·&nbsp; MCP over stdio &nbsp;·&nbsp; MIT &nbsp;·&nbsp; 70 tests &nbsp;·&nbsp; CI &nbsp;·&nbsp; <code>unsafe</code> forbidden
+  Rust &nbsp;·&nbsp; MCP over stdio &nbsp;·&nbsp; MIT &nbsp;·&nbsp; CI verified &nbsp;·&nbsp; <code>unsafe</code> forbidden
 </h3>
 
 ---

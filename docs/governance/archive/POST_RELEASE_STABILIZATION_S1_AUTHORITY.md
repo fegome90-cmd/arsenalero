@@ -28,7 +28,9 @@ Future slices must not cite this reconciliation as precedent for skipping durabl
 
 This addendum enters the authority hierarchy as **item 10**, after "Current official library documentation" (item 9):
 
-10. `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (this document) — binding-operative for slice S1 only.
+10. Original operative path: docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md
+    Current archived path: docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md (this document)
+    This authority was binding-operative only while S1 was active.
 
 Items 1-9 retain their existing order and content.
 
@@ -46,7 +48,7 @@ Where item 10 is silent, items 1-9 govern unchanged.
 - `README.md`: remove the "Known gap" paragraph (line 75) and the "No `--version` flag" limitations bullet (line 110). Do not restate the gap elsewhere.
 - `AGENTS.md` and `CONTRIBUTING.md`: rewrite all "Task 6" references to reflect S1 as the current closed slice and Task 6 as historical record. Add item 10 to the authority hierarchy.
 - `docs/evidence/context7-ledger.md`: append one dated entry per the ledger_entry_draft (section 8).
-- This document (`docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`): newly created.
+- This document originally at `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`, now archived at `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`: created as operative authority for S1, archived upon S1 close.
 
 ### Out of scope (unchanged from repository invariants)
 - `ring`/`sha2` not in scope. `-liconv` out of scope (environmental). No `.cargo/config.toml`. No new dependency. Five-tool set fixed. `bootstrap-manifest.json` byte-identical (historical snapshot, NOT superseded). No Cargo.toml dependency/feature/version change. **server.rs NOT touched.** No filesystem access, network, classification, receipts, journal/reconciliation, or new MCP handlers/tools.

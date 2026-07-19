@@ -227,6 +227,12 @@ Task 10 obtained current official Context7 resolver and documentation evidence b
 
 **Slice**: S1 — report package version from Cargo metadata.
 **Authority**: `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (item 10, binding-operative for S1 only).
+
+> Path correction (2026-07-18): at execution time the authority lived at
+> the non-archived path above. The current archived location is
+> `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`.
+> The authority was binding-operative only while S1 was active; it is
+> now APPROVED/CLOSED and no longer binding-operative.
 **Change**: `crates/arsenalero-mcp/src/main.rs` line 10 prints `arsenalero {CARGO_PKG_VERSION}` (matching `server.rs:47` `serverInfo.name = "arsenalero"`) for `--version` and `-V`, then exits 0. New workspace test `tests/integration/version_flag.rs` covers the long flag, short flag, and a no-flags still-alive contract (process alive after 3s, then reaped). README gap text removed (lines ~75 and ~110). AGENTS.md and CONTRIBUTING.md Task 6 references rewritten to S1. No new dependency, no Cargo.toml change beyond the new `[[test]]` block, `bootstrap-manifest.json` byte-identical.
 **Result**: `cargo test --package arsenalero-mcp --test version_flag --locked` ran 3 tests; all passed (exit code 0): `long_version_flag_prints_package_version_and_exits_zero`, `short_version_flag_prints_package_version_and_exits_zero`, `no_flags_keeps_the_stdio_server_alive`; finished in 3.01s. `cargo test --workspace --locked` passed with no regressions. Note: the build invoked `cargo` with `SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk` and `RUSTFLAGS="-L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"` to work around the known environmental `-liconv` linker gap (out of S1 scope per the addendum); no repository change was required for that environment workaround.
 

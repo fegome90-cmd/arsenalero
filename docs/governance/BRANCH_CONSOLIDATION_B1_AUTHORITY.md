@@ -191,3 +191,51 @@ capability MUST follow the two-phase barrier:
 
 An agent MUST NOT prepare AND publish in the same delegation without
 an explicit approval gate between them.
+
+## 9. Enmienda 2026-07-18: revisión de PR #1
+
+Approved by: Felipe Gonzalez
+Approval date: 2026-07-18
+Scope: PR #1 review remediation
+
+After PR #1 was opened, Copilot review (status COMMENTED, not
+REQUEST_CHANGES) identified 6 documentary findings:
+
+1. README.md declares "70 tests" (mutable counter, will go stale).
+2. AGENTS.md has 2 broken references to the non-archived S1 addendum path.
+3. CONTRIBUTING.md says S1 is the current active slice (contradicts AGENTS.md).
+4. Ledger entry has a broken reference to the non-archived S1 path.
+5. Archived S1 addendum has internal references to its own non-archived path.
+6. AGENTS.md is autocontradictory: declares B1 active but still has
+   stale S1 operative blocks (scope, TDD, commits, safety, stop
+   conditions, validations).
+
+This enmienda authorizes a single corrective commit on the existing
+recovery branch `chore/branch-consolidation-b1-recovery` to remediate
+all 6 findings. The commit touches exactly these 5 files:
+
+- `README.md` (remove mutable counter, replace with "CI verified")
+- `AGENTS.md` (fix 2 broken paths + replace 6 stale S1 operative blocks with B1 references)
+- `CONTRIBUTING.md` (replace "S1 active" with "B1 active" references)
+- `docs/evidence/context7-ledger.md` (additive path correction note)
+- `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (fix internal broken paths)
+- This document (`docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`) — adds this enmienda section itself
+
+(The enmienda adds this section to itself; the corrective changes to
+the other 5 files happen in the same commit.)
+
+### Additional stop conditions for this enmienda
+
+- The corrective commit MUST NOT introduce new code or test changes.
+- The corrective commit MUST NOT touch any file outside the 5 listed above
+  (plus this addendum itself).
+- The corrective commit MUST NOT alter the merge commit or any prior
+  commit on the recovery branch (it is an additive commit on top).
+- Push MUST be a fast-forward (no force-push needed; the branch just
+  gains one new commit).
+
+### Three-gate workflow applies
+
+The corrective commit is prepared (Encargo A), validated, and reported
+with exact SHA. The human reviews the exact SHA and diff. Only after
+explicit human approval does Encargo B push to the existing branch.
