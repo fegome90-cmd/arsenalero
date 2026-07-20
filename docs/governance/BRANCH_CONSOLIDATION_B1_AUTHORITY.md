@@ -310,9 +310,11 @@ Validation:
 - `cargo test --workspace --all-features --locked`
 - `cargo deny check`
 - `git diff --check`
-- explicit permitted-path scope check: using this amendment's recorded
-  `<section-base-sha>` (not a moving commit count), run
-  `git diff --name-only <section-base-sha>..HEAD | sort` and compare the
+- explicit permitted-path scope check for the section 10 amendment
+  snapshot: its recorded base SHA is
+  `a653e67346e153074bb9c92a27fff005fa4dbeb9`, and its recorded end SHA is
+  `9fc97df2bbea5911c1555d69887f9dbce881108`. Run
+  `git diff --name-only a653e67346e153074bb9c92a27fff005fa4dbeb9..9fc97df2bbea5911c1555d69887f9dbce881108 | sort` and compare the
   output exactly with this sorted permitted-file list:
   ```text
   docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md
