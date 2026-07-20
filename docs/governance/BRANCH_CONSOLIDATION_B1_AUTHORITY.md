@@ -358,3 +358,16 @@ Validation:
 - `cargo test --workspace --all-features --locked`
 - `cargo deny check`
 - `git diff --check`
+- explicit permitted-path scope check for the section 11 amendment
+  snapshot: its recorded base SHA is
+  `9fc97df2bbea5911c1555d69887f9dbce881108`, and its recorded end SHA is
+  `a68871250657d3d4f73f6270ae30428872cc7675`. Run
+  `git diff --name-only 9fc97df2bbea5911c1555d69887f9dbce881108..a68871250657d3d4f73f6270ae30428872cc7675 | sort` and compare the
+  output exactly with this sorted permitted-file list:
+  ```text
+  docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md
+  rust-toolchain.toml
+  ```
+  Fail closed if the comparison is not an exact match, including when any
+  third path appears, and record the actual command output before approval
+  or push.
