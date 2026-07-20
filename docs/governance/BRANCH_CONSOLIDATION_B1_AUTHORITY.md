@@ -310,6 +310,17 @@ Validation:
 - `cargo test --workspace --all-features --locked`
 - `cargo deny check`
 - `git diff --check`
+- explicit permitted-path scope check: using this amendment's recorded
+  `<section-base-sha>` (not a moving commit count), run
+  `git diff --name-only <section-base-sha>..HEAD | sort` and compare the
+  output exactly with this sorted permitted-file list:
+  ```text
+  docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md
+  tests/integration/version_flag.rs
+  ```
+  Fail closed if the comparison is not an exact match, including when any
+  third path appears, and record the actual command output before approval
+  or push.
 
 ## 11. Amendment: PR #1 CI toolchain remediation
 
