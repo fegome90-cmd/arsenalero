@@ -222,3 +222,22 @@ Task 10 obtained current official Context7 resolver and documentation evidence b
 - Cargo exact pins were checked against the changed manifest and lockfile.
 - The exact requested cargo test -p arsenalero-mcp was attempted in the worktree and was blocked before compilation by Operation not permitted opening target/debug/.cargo-lock; a supplemental CARGO_TARGET_DIR=/tmp/arsenalero-task-10-target cargo test -p arsenalero-mcp passed after implementation.
 - The known core -D warnings issue remains outside Task 10 scope: cargo clippy -p arsenalero-mcp --all-targets -- -D warnings reports pre-existing arsenalero-core dead-code errors for CaseId::new and ReceiptId::new.
+
+## 2026-07-17 — Post-Task-14 release state
+
+**Slice**: S1 — report package version from Cargo metadata.
+**Authority**: `docs/governance/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (item 10, binding-operative for S1 only).
+
+> Path correction (2026-07-18): at execution time the authority lived at
+> the non-archived path above. The current archived location is
+> `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md`.
+> The authority was binding-operative only while S1 was active; it is
+> now APPROVED/CLOSED and no longer binding-operative.
+**Change**: `crates/arsenalero-mcp/src/main.rs` line 10 prints `arsenalero {CARGO_PKG_VERSION}` (matching `server.rs:47` `serverInfo.name = "arsenalero"`) for `--version` and `-V`, then exits 0. New workspace test `tests/integration/version_flag.rs` covers the long flag, short flag, and a no-flags still-alive contract (process alive after 3s, then reaped). README gap text removed (lines ~75 and ~110). AGENTS.md and CONTRIBUTING.md Task 6 references rewritten to S1. No new dependency, no Cargo.toml change beyond the new `[[test]]` block, `bootstrap-manifest.json` byte-identical.
+**Result**: `cargo test --package arsenalero-mcp --test version_flag --locked` ran 3 tests; all passed (exit code 0): `long_version_flag_prints_package_version_and_exits_zero`, `short_version_flag_prints_package_version_and_exits_zero`, `no_flags_keeps_the_stdio_server_alive`; finished in 3.01s. `cargo test --workspace --locked` passed with no regressions. Note: the build invoked `cargo` with `SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk` and `RUSTFLAGS="-L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"` to work around the known environmental `-liconv` linker gap (out of S1 scope per the addendum); no repository change was required for that environment workaround.
+
+## 2026-07-17 — Slice S1 close and reconciliation
+
+**Slice**: S1 close commit (commit 4).
+**Change**: S1 is closed. The S1 addendum is moved to `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` and marked APPROVED/CLOSED, no longer binding-operative. AGENTS.md item 10 reference updated to the archive path. Four additions to the addendum record the reconciliation: (1a) lifecycle reconciliation declaring the process deviation (no durable approval artifact before C1, only ephemeral orchestrator chat approval — declared, not normalized); (5b) addendum authorization rule preventing future self-authorization (agents may draft but must not approve; approval must be a durable artifact); (5c) V7 coverage clarification correcting the acceptance criterion from "MCP loop entry" to "does not take the version early-exit path"; (5d) implementation narrative reconciliation recording that C2 was an ADD not a MODIFY, line-number references are non-durable, and `-liconv` is environmental evidence only.
+**Result**: S1 authorizes no further repository mutations. Items 1-9 of the AGENTS.md authority hierarchy resume full authority. Future stabilization slices must persist approval as a durable artifact (the lesson from the B1 deviation).

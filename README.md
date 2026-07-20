@@ -1,62 +1,18 @@
-# Arsenalero
-
 <p align="center">
   <img src="./assets/readme/hero.svg" alt="Arsenalero — a local Rust MCP server that keeps a tamper-evident resource-custody trail for AI agents after a skill is activated. The card lists the five custody tools: arsenal_init, arsenal_stage, arsenal_issue, arsenal_attest, arsenal_reconcile." width="100%">
 </p>
 
-<p align="center">
-  <strong>Rust</strong> · MCP over stdio · MIT · 70 tests · CI · <code>unsafe</code> forbidden
-</p>
+<h3 align="center">
+  Rust &nbsp;·&nbsp; MCP over stdio &nbsp;·&nbsp; MIT &nbsp;·&nbsp; CI verified &nbsp;·&nbsp; <code>unsafe</code> forbidden
+</h3>
 
 ---
 
 ## What it is
 
-**Arsenalero** is a local [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server, written in Rust, that provides **resource custody for AI agents after a skill is activated**. A "skill" here is a packaged capability an agent loads (with its own root directory and resource files); "resources" are the files, guides, and artifacts that skill declares. Arsenalero records who received which resources and how they were used.
+**Arsenalero** is a local MCP server, written in Rust, that provides **resource custody for AI agents after a skill is activated**. It runs over stdio, ships as a Codex plugin, and records who received which resources and how they were used.
 
 Arsenalero is an **observer, not an enforcer**. It never blocks, mutates, or judges agent behavior. It does not activate skills, does not control workflows, and does not access the filesystem or network during scanning. It opens a custody case, inventories the active skill, issues resources with receipts, records evidence, and returns a final summary the agent surfaces to the user.
-
-## Quickstart
-
-**Prerequisites:** Rust toolchain (version pinned via [`rust-toolchain.toml`](./rust-toolchain.toml)).
-
-Arsenalero is **not published to crates.io as a standalone binary**. First use requires the Rust toolchain, a clone, a build, and pointing an MCP client at the stdio server.
-
-**1. Clone and build**
-
-```sh
-git clone <repo-url> arsenalero
-cd arsenalero
-cargo build --locked --package arsenalero-mcp
-```
-
-**2. Point an MCP client at the server**
-
-The repo ships a `.mcp.json` that runs the server from source via `cargo`:
-
-```json
-{
-  "mcpServers": {
-    "arsenalero": {
-      "cwd": ".",
-      "command": "cargo",
-      "args": ["run", "--locked", "--package", "arsenalero-mcp"]
-    }
-  }
-}
-```
-
-Use it as a Codex plugin via `.codex-plugin/plugin.json` (which references `./.mcp.json`), or add the same server entry to your own MCP client configuration. The server speaks MCP over standard input/output and exits when the transport closes.
-
-**Known gap — no `--version` flag.** The binary does not implement a `--version` flag. To confirm you are running the build you expect, check the workspace version in `Cargo.toml` (`0.1.0`) or use `cargo run --package arsenalero-mcp` from the intended checkout.
-
-## Testing
-
-```sh
-cargo test --workspace --locked
-```
-
-For verbose output: `cargo test --workspace -- --nocapture`. The suite covers domain logic, classification, path policy, the MCP server, and stdio integration.
 
 ## Why it's different
 
@@ -86,11 +42,39 @@ After a skill is already active, the agent drives a single custody case through 
 
 These descriptions are taken verbatim from the tool definitions in `crates/arsenalero-mcp/src/server.rs`.
 
-Tool input and output schemas are defined in [`crates/arsenalero-mcp/src/schema.rs`](./crates/arsenalero-mcp/src/schema.rs).
+## Quickstart
+
+Arsenalero is **not published to crates.io as a standalone binary**. First use requires the Rust toolchain, a clone, a build, and pointing an MCP client at the stdio server.
+
+**1. Clone and build**
+
+```sh
+git clone <repo-url> arsenalero
+cd arsenalero
+cargo build --locked --package arsenalero-mcp
+```
+
+**2. Point an MCP client at the server**
+
+The repo ships a `.mcp.json` that runs the server from source via `cargo`:
+
+```json
+{
+  "mcpServers": {
+    "arsenalero": {
+      "cwd": ".",
+      "command": "cargo",
+      "args": ["run", "--locked", "--package", "arsenalero-mcp"]
+    }
+  }
+}
+```
+
+Use it as a Codex plugin via `.codex-plugin/plugin.json` (which references `./.mcp.json`), or add the same server entry to your own MCP client configuration. The server speaks MCP over standard input/output and exits when the transport closes.
 
 ## Evaluation & rigor
 
-Arsenalero is designed for reproducible evaluation and auditable governance.
+Arsenalero is built to be research-grade, with reproducible evaluation and auditable governance.
 
 - **Evaluation contract:** `evals/` defines a fixed matrix of **20 cases × 3 arms × 3 trials (180 runs)**, with `pass@3` (at least one of three trials succeeds) and `pass^3` (all three trials succeed) metrics, plus a locked-regression **anti-tuning rule** so cases cannot be tuned to the implementation. See `evals/README.md`, `evals/cases.jsonl`, and `evals/labels.jsonl`.
 - **Safety by construction:** `unsafe_code = "forbid"` is enforced at the workspace level in the root `Cargo.toml`, and the binary repeats `#![forbid(unsafe_code)]`.
@@ -119,9 +103,8 @@ Arsenalero is deliberately narrow. These constraints are by design, not gaps to 
 
 - **stdio-only.** The server speaks MCP over standard input/output. There is no network listener.
 - **Local.** It runs on your machine against a skill root you explicitly authorize; the skill root is a read-only input.
-- **Non-blocking.** Arsenalero reports custody state (missing calls, stale receipts, digest drift, unresolved resources). It does not block, intercept, mask tools, execute validators, or judge the primary task result. See "Why it's different" above.
+- **Observer, not enforcer.** Arsenalero reports custody state (missing calls, stale receipts, digest drift, unresolved resources). It does not block, intercept, mask tools, execute validators, or judge the primary task result.
 - **No standalone published binary.** It is not on crates.io as a standalone binary; first use requires a Rust toolchain and a build from source.
-- **No `--version` flag** on the binary (see Quickstart).
 
 ## Contributing, Security, License
 
