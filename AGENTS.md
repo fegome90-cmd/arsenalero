@@ -14,7 +14,9 @@ paths, scope, and operations are defined in
 docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md section 3. Do not
 perform mutations outside that scope.
 
-Do not modify Bootstrap, Task 4, Task 5, or Task 6 history, copied authority documents, or another worktree. Do not add classification, digests/UUIDs, receipts, journal/reconciliation, MCP handlers or tools, filesystem access, execution, network access, or HTML/script execution. The MCP server remains a zero-domain-tool stdio boundary. Task 7 deterministic classification is the next permitted task only after S1 is reviewed, committed, and closed.
+Do not modify Bootstrap, Task 4, Task 5, or Task 6 history, copied authority documents, or another worktree. Do not add classification, digests/UUIDs, receipts, journal/reconciliation, MCP handlers or tools, filesystem access, execution, network access, or HTML/script execution. The MCP server remains a zero-domain-tool stdio boundary. Task 7 remains deferred historical work. It is not permitted during
+B1 Recovery. Future implementation work requires B1 closure or formal
+retirement and a new human-approved governance addendum.
 
 ## Authority hierarchy
 

@@ -240,41 +240,16 @@ The corrective commit is prepared (Encargo A), validated, and reported
 with exact SHA. The human reviews the exact SHA and diff. Only after
 explicit human approval does Encargo B push to the existing branch.
 
-### Cardinality reconciliation (2026-07-19)
+### Review-remediation reconciliation
 
-The enmienda authorized "a single corrective commit" (section 9 main
-text) but the actual remediation required three commits:
+The amendment originally expected a single corrective commit. In
+practice, review remediation required multiple additive follow-up
+commits. Each follow-up remained within an explicitly approved file
+scope and was separately reviewed and approved.
 
-1. `30fe4cc` — initial remediation of all 6 review findings across
-   5 target files plus this addendum.
-2. `ee118e5` — residual fix for CONTRIBUTING.md lines 11 and 23
-   (same Hallazgo 6 pattern: sub-agent updated the active-slice
-   pointer but left operative blocks stale; detected in human review
-   of `30fe4cc`, not in the initial sub-agent pass).
-3. this reconciliation commit: corrects the file-count description
-   (was "5 files", actually 6 including this addendum), acknowledges
-   the cardinality deviation from "single corrective commit", and
-   fixes residual wording issues in AGENTS.md (autocontradictory
-   line 39) and CONTRIBUTING.md (stale heading line 7) detected in
-   second human review. (The exact SHA is available via git log;
-   the prior commit's pre-amend SHA was previously inlined here but
-   removed because it is not durable: a commit cannot contain its
-   own SHA, and the pre-amend SHA was not the actual final SHA of
-   the prior commit.)
-
-Cardinality deviation acknowledged, not normalized. Future enmiendas
-must declare exact commit count upfront, or accept that additional
-commits require explicit reconciliation like this one. The single-commit
-assumption was wrong: review remediation in a slice that touches
-interdependent governance documents predictably produces additional
-commits as each review surfaces related defects.
-
-Additionally corrected in this commit: section 9 originally said
-"touches exactly these 5 files" while the same sentence enumerated
-6 files (5 target files plus this addendum). The stop condition
-"outside the 5 listed above (plus this addendum itself)" was
-internally inconsistent. Corrected to "6 listed above" — the 6 files
-were always 6 (5 target + this addendum); only the count was wrong.
+The cardinality deviation is acknowledged, not normalized. Git history
+is the authoritative record of the exact commit sequence; this active
+addendum does not maintain a moving commit count before PR closure.
 
 ## 10. Amendment: PR #1 CI merge-gate remediation
 
