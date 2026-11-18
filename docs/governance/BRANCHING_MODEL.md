@@ -1,6 +1,6 @@
 # Branching Model
 
-Adopted 2026-07-18 by Felipe Gonzalez (human approval materialized in `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`). Effective upon PR 1 merge.
+Adopted 2026-07-18 by Felipe Gonzalez (human approval materialized in `docs/governance/archive/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`). Effective upon PR 1 merge.
 
 ## Branch roles
 
@@ -34,4 +34,8 @@ Decisions:
 - SVG visual polish from main (WCAG AA, cross-platform fonts, honest viewBox) enters the consolidated main via merge `--theirs`.
 - `main` pre-MCP state preserved via tag `archive/pre-mcp-public-2026-07-17`.
 - No `develop` branch, no gitflow — single canonical line for a single-developer repository.
-- The unauthorized M2 commits (539d2e3, 68e3e60) are quarantined via `incident/*` tags and excluded from canonical history. Their branches (`origin/develop`, `origin/chore/bootstrap-arsenalero-mcp-v1`) will be deleted after B1 closes; the tags preserve the evidence indefinitely.
+- The unauthorized M2 commits (539d2e3, 68e3e60) are quarantined via
+  `incident/*` tags and excluded from canonical history. Deletion of the
+  remaining unauthorized remote branches is pending a separately authorized
+  cleanup after B1 closure; the incident tags preserve the evidence
+  indefinitely.

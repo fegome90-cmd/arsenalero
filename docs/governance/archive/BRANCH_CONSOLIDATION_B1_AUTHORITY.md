@@ -1,7 +1,7 @@
 # Authority Addendum — Branch Consolidation B1 (Recovery)
 
-> Status: **APPROVED**
-> Lifecycle: **ACTIVE** (until PR 1 merges to main and PR 2 closes B1)
+> Status: **APPROVED** (closure prepared; historical after PR #2 merges)
+> Lifecycle: **APPROVED/CLOSED upon merge of PR #2** (PR #1 already merged to `main`)
 > Recovery of: B1 originally planned 2026-07-17, restarted 2026-07-18 after an unauthorized M2 gitflow execution
 
 ## Approval
@@ -74,6 +74,12 @@ will be quarantined through immutable incident tags and their branch
 references will be deleted only after the canonical integration and B1
 closure are complete (in a future session).
 
+## Closure record prepared — 2026-07-22
+
+PR #1 merged to `main` at `9375f83efe715a799089ddaaedc9075415e0e519`, integrating the bootstrap history into `main`. PR #2 prepares the archive and closure of this approved addendum; when PR #2 merges, B1 will close. The incident tags remain retained as historical evidence. Cleanup of unauthorized branches and worktrees is a separate post-PR2 verification and is not asserted by this prepared closure record.
+
+After PR #2 merges and B1 closes, no slice is active. Any future slice requires a new durable addendum approved by a human; this addendum does not authorize Task 7.
+
 ## 1. Purpose
 
 Authorize the consolidation of two diverged branches into a single
@@ -84,17 +90,17 @@ canonical history on `main` via a normal merge commit:
 Both share common ancestor `ff4a9e1`. After B1, `main` becomes the
 canonical PR-only branch.
 
-## 2. Authority hierarchy insertion
+## 2. Historical authority hierarchy insertion
 
 Item 11 in the AGENTS.md authority hierarchy. Item 10 (archived S1
 addendum) remains unchanged.
 
-## 3. Scope (binding-operative)
+## 3. Scope (historical B1 scope; no longer binding-operative)
 
 ### In scope (exhaustive)
 - Worktree `/Users/felipe_gonzalez/Developer/arsenalero-integration-worktree` (temporary, non-operative prep before C1)
 - Branch `chore/branch-consolidation-b1-recovery` (created from `5ae4de0`, non-operative prep before C1)
-- This document: `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md` (NEW)
+- This document: `docs/governance/archive/BRANCH_CONSOLIDATION_B1_AUTHORITY.md` (archived by PR #2; original active path was `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`)
 - `docs/governance/BRANCHING_MODEL.md` (NEW, in C2)
 - `AGENTS.md` (scoped updates in C1 and C2)
 - `CONTRIBUTING.md` (scoped updates in C2)
@@ -139,7 +145,7 @@ Stop before or during mutation when:
 - PR 1 auto-merge is attempted in the same execution that creates it
 - Push is attempted without the two-phase approval (prepare → human approval → push)
 
-## 6. Lifecycle and retirement
+## 6. Lifecycle and retirement (historical plan; superseded by the closure record)
 
 B1 is a **short-lived, single-purpose addendum with an explicit
 retirement procedure**. (Do NOT invoke the M2 self-retiring addendum
@@ -165,19 +171,18 @@ Upon successful merge of PR 1 to main:
    - Remove the integration worktree and the bootstrap worktree (its content is now in main)
    - Decide on `feat/arsenalero-eval-framework` and `feat/arsenalero-mcp-v1` (UNRELATED, separate decision)
 
-PR 2 and the cleanup steps happen in a future session. PR 1 of this session is NOT auto-merged.
+PR #1 subsequently merged at `9375f83efe715a799089ddaaedc9075415e0e519`. This PR #2 prepares the archival close. The cleanup items above remain subject to separate post-PR2 verification; this addendum does not assert that any branch or worktree has already been removed.
 
 ## 7. Authorization for PR 2
 
-This addendum explicitly pre-authorizes PR 2 (the close PR) as part of
-B1's retirement. PR 2 may be drafted, pushed, and opened by an agent
-after PR 1 is merged and main's SHA is verified. PR 2 itself still
-requires human review before merge.
+This addendum explicitly pre-authorized PR 2 (the close PR) as part of
+B1's retirement. PR #2 prepares to archive this addendum; it still requires
+human review before merge. After PR #2 merges, this addendum is historical only.
 
-## 8. Operational control: two-phase push barrier
+## 8. Historical operational control: two-phase push barrier
 
-To prevent recurrence of the M2 incident, every agent with push
-capability MUST follow the two-phase barrier:
+During B1, to prevent recurrence of the M2 incident, every agent with push
+capability was required to follow the two-phase barrier:
 
 1. **Prepare locally**: create commits, tags, branches, merge results
    in the local worktree.
@@ -189,8 +194,8 @@ capability MUST follow the two-phase barrier:
    and requests changes).
 4. **Push**: only after explicit approval.
 
-An agent MUST NOT prepare AND publish in the same delegation without
-an explicit approval gate between them.
+An agent was not permitted to prepare AND publish in the same delegation
+without an explicit approval gate between them.
 
 ## 9. Enmienda 2026-07-18: revisión de PR #1
 
@@ -219,7 +224,7 @@ all 6 findings. The commit touches exactly these 6 files (5 target files plus th
 - `CONTRIBUTING.md` (replace "S1 active" with "B1 active" references)
 - `docs/evidence/context7-ledger.md` (additive path correction note)
 - `docs/governance/archive/POST_RELEASE_STABILIZATION_S1_AUTHORITY.md` (fix internal broken paths)
-- This document (`docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`) — adds this enmienda section itself
+- This document: original operative path `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`; current archived path `docs/governance/archive/BRANCH_CONSOLIDATION_B1_AUTHORITY.md` — adds this enmienda section itself
 
 (The enmienda adds this section to itself; the corrective changes to
 the other 5 target files happen in the same commit; this addendum is the 6th file.)
@@ -248,12 +253,12 @@ commits. Each follow-up remained within an explicitly approved file
 scope and was separately reviewed and approved.
 
 The cardinality deviation is acknowledged, not normalized. Git history
-is the authoritative record of the exact commit sequence; this active
+is the authoritative record of the exact commit sequence; this then-active
 addendum does not maintain a moving commit count before PR closure.
 
 ## 10. Amendment: PR #1 CI merge-gate remediation
 
-Status: APPROVED/ACTIVE
+Status: HISTORICAL (was APPROVED/ACTIVE during B1)
 Approved by: Felipe Gonzalez
 Approval date: 2026-07-19
 Approval source: exact human approval in the orchestration thread (Gate A1)
@@ -263,7 +268,7 @@ change required to make the existing GitHub Actions Clippy gate pass.
 
 Permitted files:
 - `tests/integration/version_flag.rs`
-- `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
+- Original operative path: `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`; current archived path: `docs/governance/archive/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
 
 Permitted changes:
 - correct only the rustdoc indentation that triggers
@@ -301,7 +306,7 @@ Validation:
 
 ## 11. Amendment: PR #1 CI toolchain remediation
 
-Status: APPROVED/ACTIVE
+Status: HISTORICAL (was APPROVED/ACTIVE during B1)
 Approved by: Felipe Gonzalez
 Approval date: 2026-07-19
 Approval source: exact human approval in the orchestration thread (Gate A1)
@@ -312,7 +317,7 @@ installed in the toolchain defined by `rust-toolchain.toml`.
 
 Permitted files:
 - `rust-toolchain.toml`
-- `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
+- Original operative path: `docs/governance/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`; current archived path: `docs/governance/archive/BRANCH_CONSOLIDATION_B1_AUTHORITY.md`
 
 Permitted changes:
 - add `"clippy"` to the `components` array in `rust-toolchain.toml`;
